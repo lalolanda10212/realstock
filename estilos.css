@@ -161,6 +161,7 @@ header {
   outline: none;
   cursor: pointer;
   font-size: 1rem;
+  user-select: none;
 }
 
 .btn i {
@@ -243,6 +244,7 @@ header {
 
 .wrapper-table table {
   width: 100%;
+  min-width: 1020px;
   border-collapse: collapse;
 }
 
@@ -256,7 +258,7 @@ header {
 .wrapper-table tr {
   background-color: #fff;
   height: 45px;
-  border: solid 2px #ccd2db;
+  border: solid 1px #ccd2db;
 }
 
 .wrapper .titles-table td{
@@ -271,6 +273,7 @@ header {
 .wrapper-table tr td img {
   width: 30px;
   height: 30px;
+  cursor: pointer;
 }
 
 .cell-center {
@@ -313,12 +316,94 @@ nav {
   display: block;
   font-size: 17px;
   padding: 15px;
-  transition: 0.3s;
+  transition: .3s;
 }
 
 .link a:hover {
   color: #000;
   background-color: #fff;
+}
+
+.modal-wrapper {
+  position: fixed;
+  overflow-y: auto;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+  opacity: 0;
+  visibility: hidden;
+  transition: .2s;
+}
+
+.modal-wrapper.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal {
+  margin: 35px auto;
+  height: fit-content;
+  width: 600px;
+  background-color: #EFF2F6;
+  border-radius: 7px;
+  overflow: hidden;
+  font-family: sans-serif;
+  opacity: 0;
+  transform: scale(0);
+  transition: .3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.modal.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.modal-header {
+  display: flex;
+  padding: 10px 20px;
+  background-color: #fff;
+  font-size: 22px;
+  justify-content: space-between;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.modal-header i {
+  font-size: 30px;
+  color: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  transition: color .3s;
+}
+
+.modal-header i:hover {
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.modal-content {
+  padding: 30px;
+}
+
+.form-section {
+  margin: 20px 0;
+  width: 100%;
+  font-size: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form-section input, .form-section select {
+  width: 70%;
+  padding: 7px;
+  font-size: 16px;
+}
+
+.modal-content form input[type="submit"] {
+  font-size: 16px;
+  width: 100%;
 }
 
 @media screen and (max-width: 600px) {
