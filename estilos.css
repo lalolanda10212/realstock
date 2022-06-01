@@ -18,6 +18,10 @@ a {
   transition: margin-left 0.5s;
 }
 
+.wrapper.collapse {
+  margin-left: 0;
+}
+
 header {
   position: absolute;
   top: 0;
@@ -144,7 +148,7 @@ header {
 .items-container {
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
   flex-wrap: wrap;
   margin: 20px;
   font-family: sans-serif;
@@ -207,6 +211,32 @@ header {
   box-shadow: 0 0 0 4px rgba(83, 55, 143, 0.4)
 }
 
+.btn-red {
+  background-color: #e41102;
+  transition: 0.3s;
+}
+
+.btn-red:hover {
+  background-color: #bd0d00;
+}
+
+.btn-red:focus {
+  box-shadow: 0 0 0 4px rgba(228, 17, 2, 0.4);
+}
+
+.btn-gray {
+  background-color: #808080;
+  transition: 0.3s;
+}
+
+.btn-gray:hover {
+  background-color: #666666;
+}
+
+.btn-gray:focus {
+  box-shadow: 0 0 0 4px rgba(128, 128, 128, 0.4);
+}
+
 .search-bar {
   background-color: #fff;
   width: 400px;
@@ -215,8 +245,9 @@ header {
   grid-template-columns: 40px 1fr;
   overflow: hidden;
   font-size: 20px;
-  box-shadow: 0 0 2px #000;
+  box-shadow: 0 0 2px rgb(14, 12, 12);
   transition: 0.3s;
+  margin: auto;
 }
 
 .search-bar .icon-search {
@@ -233,7 +264,7 @@ header {
 }
 
 .search-bar:hover {
-  box-shadow: 0 0 4px #000;
+  box-shadow: 0 0 4px rgb(2, 128, 231);
 }
 
 .wrapper-table {
@@ -308,7 +339,12 @@ nav {
   font-family: "Josefin Sans", sans-serif;
   font-weight: 600;
   overflow-x: hidden;
+  z-index: 10;
   transition: transform 0.5s;
+}
+
+nav.collapse {
+  transform: translateX(-250px);
 }
 
 .link a {
@@ -367,8 +403,10 @@ nav {
   background-color: #fff;
   font-size: 22px;
   justify-content: space-between;
+  align-items: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  color: rgba(0, 0, 0, 0.8);
+  color: #53378F;
+  font-weight: bold;
 }
 
 .modal-header i {
@@ -384,6 +422,16 @@ nav {
 
 .modal-content {
   padding: 30px;
+  text-align: center;
+}
+
+.modal-content h2 {
+  margin-bottom: 30px;
+}
+
+.modal-content .options-delete {
+  display: flex;
+  justify-content: space-between;
 }
 
 .form-section {
@@ -413,10 +461,16 @@ nav {
   nav {
     transform: translateX(-250px);
   }
+  nav.collapse {
+    transform: translateX(0);
+  }
   header {
     flex-direction: column;
   }
   .content {
     padding-top: 100px;
+  }
+  .modal {
+    width: 90%;
   }
 }

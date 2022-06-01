@@ -1,3 +1,12 @@
+const hamburgerMenu = document.querySelector(".hamburger-menu");
+const nav = document.querySelector("nav");
+const wrapper = document.querySelector(".wrapper");
+
+hamburgerMenu.addEventListener("click", () => {
+    nav.classList.toggle("collapse");
+    wrapper.classList.toggle("collapse");
+});
+
 const btnModals = document.querySelectorAll('[data-btn-modal="true"]')
 btnModals.forEach(element => {
     element.addEventListener("click", (e) => {
@@ -16,6 +25,19 @@ btnCloseModal.forEach(element => {
     modalWrapper.addEventListener("click", (e) => {
         e.preventDefault;
         const modal = element.parentNode.parentNode;
+        if (e.target == element || e.target == modalWrapper) {
+            modalWrapper.classList.remove("visible");
+            modal.classList.remove("visible");
+        }
+    });
+});
+
+const btnCancelModal = document.querySelectorAll('[data-btn-cancel="modal"]');
+btnCancelModal.forEach(element => {
+    const modalWrapper = element.parentNode.parentNode.parentNode.parentNode;
+    modalWrapper.addEventListener("click", (e) => {
+        e.preventDefault;
+        const modal = element.parentNode.parentNode.parentNode;
         if (e.target == element || e.target == modalWrapper) {
             modalWrapper.classList.remove("visible");
             modal.classList.remove("visible");
