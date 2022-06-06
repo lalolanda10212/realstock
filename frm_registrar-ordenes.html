@@ -26,7 +26,7 @@
             </a>
           </li>
           <li class="link">
-            <a href="#">
+            <a href="frm_registrar-usuarios.html">
               <i class="fa-solid fa-user-group"></i> Usuarios
             </a>
           </li>
@@ -36,7 +36,7 @@
             </a>
           </li>
           <li class="link">
-            <a href="frm_registrar-ordenes.html">
+            <a href="#">
               <i class="fa-solid fa-screwdriver-wrench"></i> Ordenes de
               mantenimiento
             </a>
@@ -54,7 +54,7 @@
             <a href="index.html">
               <i class="fa-solid fa-house-chimney"></i>
             </a>
-            Inicio / Usuarios
+            Inicio / Ordenes de mantenimiento
           </div>
         </div>
         <div class="section-header">
@@ -68,48 +68,47 @@
       </header>
       <div class="content">
         <div class="items-container">
-          <a href="frm_crear-roles.html" class="btn btn-blue">Roles</a>
           <div class="search-bar">
             <div class="icon-search">
               <i class="fa-solid fa-magnifying-glass"></i>
             </div>
-            <input type="text" placeholder="Buscar usuario..." />
+            <input type="text" placeholder="Buscar orden de mantenimiento..." />
           </div>
-          <button class="btn btn-green" data-btn-modal="true" data-modal="#m-registrar-usuario">Registrar</button>
-          <div class="modal-wrapper" id="m-registrar-usuario">
+          <button class="btn btn-green" data-btn-modal="true" data-modal="#m-registrar-orden">Registrar</button>
+          <div class="modal-wrapper" id="m-registrar-orden">
             <div class="modal">
               <div class="modal-header">
-                <div>Registrar usuario</div>
+                <div>Registrar orden de mantenimiento</div>
                 <i class="fa-solid fa-xmark" data-btn-close="modal"></i>
               </div>
               <div class="modal-content">
                 <form action="#">
                   <div class="form-section">
-                    <label for="">Usuario:</label>
+                    <label for="">No. Remisión:</label>
                     <input
                       type="text"
-                      placeholder="Ingrese el nombre de usuario..."
+                      placeholder="Ingrese número de remisión..."
                     />
                   </div>
                   <div class="form-section">
-                    <label for="">Contraseña:</label>
-                    <input type="password" placeholder="Ingrese la contraseña..." />
+                    <label for="">Fecha:</label>
+                    <input type="password" placeholder="Ingrese la fecha..." />
                   </div>
                   <div class="form-section">
-                    <label for="">Confirmar contraseña:</label>
-                    <input type="password" placeholder="Confirme la contraseña..." />
+                    <label for="">Nombre del cliente:</label>
+                    <input type="password" placeholder="Ingrese nombre del cliente..." />
                   </div>
                   <div class="form-section">
-                    <label for="">Email:</label>
-                    <input type="text" placeholder="Ingrese el email..." />
+                    <label for="">Artículo:</label>
+                    <input type="text" placeholder="Ingrese el artículo..." />
                   </div>
                   <div class="form-section">
-                    <label for="">Nombres:</label>
-                    <input type="text" placeholder="Ingrese nombre..." />
+                    <label for="">Cantidad:</label>
+                    <input type="text" placeholder="Ingrese la cantidad..." />
                   </div>
                   <div class="form-section">
-                    <label for="">Apellidos:</label>
-                    <input type="text" placeholder="Ingrese apellidos..." />
+                    <label for="">Almacén:</label>
+                    <input type="text" placeholder="Ingrese almacén..." />
                   </div>
                   <input class="btn btn-green" type="submit" value="Registrar" />
                 </form>
@@ -120,80 +119,28 @@
         <div class="wrapper-table">
           <table>
             <tr>
-              <th colspan="8">Usuarios</th>
+              <th colspan="8">Ordenes de mantenimiento</th>
             </tr>
             <tr class="titles-table">
               <td class="cell-center">Id</td>
-              <td>Usuario</td>
-              <td>Email</td>
-              <td>Nombres</td>
-              <td>Apellidos</td>
-              <td class="cell-center">Estado</td>
+              <td>Num remisión</td>
+              <td>Fecha</td>
+              <td>Nombre cliente</td>
+              <td>Artículo</td>
+              <td>Cantidad</td>
+              <td>Almacén</td>
               <td class="cell-center">Editar</td>
-              <td class="cell-center">Asignar</td>
             </tr>
             <tr>
               <td class="cell-center">1</td>
-              <td>Josie123</td>
-              <td>nu@uhdite.sy</td>
+              <td>960583</td>
+              <td>1/5/2020</td>
               <td>Josie</td>
-              <td>Gonzales Barrett</td>
-              <td class="cell-center"><img src="img/aceptar.png" alt="" /></td>
+              <td>Dell</td>
+              <td>20</td>
+              <td>Antioquia</td>
               <td class="cell-center">
                 <div data-btn-modal="true" data-modal="#m-editar-usuario"><img src="img/editar.png" alt="Editar" /></div>
-              </td>
-              <td class="cell-center">
-                <button class="btn btn-purple" data-btn-modal="true" data-modal="#m-asignar-rol">
-                  <i class="fa-solid fa-unlock-keyhole"></i>Asignar rol
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td class="cell-center">2</td>
-              <td>Josie123</td>
-              <td>nu@uhdite.sy</td>
-              <td>Josie</td>
-              <td>Gonzales Barrett</td>
-              <td class="cell-center"><img src="img/cancelar.png" alt="" /></td>
-              <td class="cell-center">
-                <div data-btn-modal="true" data-modal="#m-editar-usuario"><img src="img/editar.png" alt="Editar" /></div>
-              </td>
-              <td class="cell-center">
-                <button class="btn btn-purple" data-btn-modal="true" data-modal="#m-asignar-rol">
-                  <i class="fa-solid fa-unlock-keyhole"></i>Asignar rol
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td class="cell-center">3</td>
-              <td>Josie123</td>
-              <td>nu@uhdite.sy</td>
-              <td>Josie</td>
-              <td>Gonzales Barrett</td>
-              <td class="cell-center"><img src="img/cancelar.png" alt="" /></td>
-              <td class="cell-center">
-                <div data-btn-modal="true" data-modal="#m-editar-usuario"><img src="img/editar.png" alt="Editar" /></div>
-              </td>
-              <td class="cell-center">
-                <button class="btn btn-purple" data-btn-modal="true" data-modal="#m-asignar-rol">
-                  <i class="fa-solid fa-unlock-keyhole"></i>Asignar rol
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td class="cell-center">4</td>
-              <td>Josie123</td>
-              <td>nu@uhdite.sy</td>
-              <td>Josie</td>
-              <td>Gonzales Barrett</td>
-              <td class="cell-center"><img src="img/aceptar.png" alt="" /></td>
-              <td class="cell-center">
-                <div data-btn-modal="true" data-modal="#m-editar-usuario"><img src="img/editar.png" alt="Editar" /></div>
-              </td>
-              <td class="cell-center">
-                <button class="btn btn-purple" data-btn-modal="true" data-modal="#m-asignar-rol">
-                  <i class="fa-solid fa-unlock-keyhole"></i>Asignar rol
-                </button>
               </td>
             </tr>
           </table>
@@ -204,44 +151,36 @@
     <div class="modal-wrapper" id="m-editar-usuario">
       <div class="modal">
         <div class="modal-header">
-          <div>Editar información de usuario</div>
+          <div>Editar orden de mantenimiento</div>
           <i class="fa-solid fa-xmark" data-btn-close="modal"></i>
         </div>
         <div class="modal-content">
           <form action="#">
             <div class="form-section">
-              <label for="">Usuario:</label>
-              <input type="text" placeholder="Ingrese el nombre de usuario..." value="Josie123"/>
+              <label for="">No. Remisión:</label>
+              <input type="text" value="960583" placeholder="Ingrese número de remisión..."/>
             </div>
             <div class="form-section">
-              <label for="">Contraseña:</label>
-              <input type="password" placeholder="Ingrese la contraseña..." value="Josie123"/>
+              <label for="">Fecha:</label>
+              <input type="password" value="1/5/2020" placeholder="Ingrese la fecha..." />
             </div>
             <div class="form-section">
-              <label for="">Confirmar contraseña:</label>
-              <input type="password" placeholder="Confirme la contraseña..." value="Josie123"/>
+              <label for="">Nombre del cliente:</label>
+              <input type="password" value="Josie" placeholder="Ingrese nombre del cliente..." />
             </div>
             <div class="form-section">
-              <label for="">Email:</label>
-              <input type="text" placeholder="Ingrese el email..." value="nu@uhdite.sy"/>
+              <label for="">Artículo:</label>
+              <input type="text" value="Dell" placeholder="Ingrese el artículo..." />
             </div>
             <div class="form-section">
-              <label for="">Nombres:</label>
-              <input type="text" placeholder="Ingrese nombre..." value="Josie"/>
+              <label for="">Cantidad:</label>
+              <input type="text" value="20" placeholder="Ingrese la cantidad..." />
             </div>
             <div class="form-section">
-              <label for="">Apellidos:</label>
-              <input type="text" placeholder="Ingrese apellidos..." value="Gonzales Barrett"/>
+              <label for="">Almacén:</label>
+              <input type="text" value="Antioquia" placeholder="Ingrese almacén..." />
             </div>
-            <div class="form-section">
-              <label for="">Estado:</label>
-              <select>
-                <option value="">Seleccione activar o desactivar</option>
-                <option value="Activar" selected>Activar</option>
-                <option value="Desactivar">Desactivar</option>
-              </select>
-            </div>
-            <input class="btn btn-green" type="submit" value="Actualizar"/>
+            <input class="btn btn-green" type="submit" value="Guardar" />
           </form>
         </div>
       </div>
