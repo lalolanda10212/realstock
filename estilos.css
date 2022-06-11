@@ -292,7 +292,7 @@ header {
   border: solid 1px #ccd2db;
 }
 
-.wrapper .titles-table td{
+.wrapper .titles-table td {
   font-weight: 600;
   background-color: #F4F6F8;
 }
@@ -443,7 +443,8 @@ nav.collapse {
   align-items: center;
 }
 
-.form-section input, .form-section select {
+.form-section input,
+.form-section select {
   width: 70%;
   padding: 7px;
   font-size: 16px;
@@ -458,18 +459,23 @@ nav.collapse {
   .wrapper {
     margin-left: 0;
   }
+
   nav {
     transform: translateX(-250px);
   }
+
   nav.collapse {
     transform: translateX(0);
   }
+
   header {
     flex-direction: column;
   }
+
   .content {
     padding-top: 100px;
   }
+
   .modal {
     width: 90%;
   }
