@@ -96,6 +96,10 @@ header {
   margin-left: 30px;
 }
 
+.btn-logout a {
+  color: rgba(0, 0, 0, 0.8);
+}
+
 .content {
   background-color: #eff2f6;
   min-height: calc(100vh - 30px);
@@ -153,7 +157,7 @@ header {
   margin: 20px;
   font-family: sans-serif;
 }
-
+/* ---------------------------- Botones -------------------------------*/
 .btn {
   min-width: 100px;
   height: fit-content;
@@ -237,6 +241,9 @@ header {
   box-shadow: 0 0 0 4px rgba(128, 128, 128, 0.4);
 }
 
+/* -------------------------------------------Fin boton ----------------------------*/
+
+/* ----------------------------------Barra de busqueda -----------------------------*/
 .search-bar {
   background-color: #fff;
   width: 400px;
@@ -266,7 +273,9 @@ header {
 .search-bar:hover {
   box-shadow: 0 0 4px rgb(2, 128, 231);
 }
+/* --------------------------------------Fin barra de busqueda ----------------------------------*/
 
+/* --------------------------------------- Wrapper ----------------------------------------------*/
 .wrapper-table {
   font-family: sans-serif;
   overflow-x: auto;
@@ -292,7 +301,7 @@ header {
   border: solid 1px #ccd2db;
 }
 
-.wrapper .titles-table td {
+.wrapper .titles-table td{
   font-weight: 600;
   background-color: #F4F6F8;
 }
@@ -306,6 +315,8 @@ header {
   height: 30px;
   cursor: pointer;
 }
+
+/* ----------------------------------------- Fin wrapper ----------------------------------*/
 
 .cell-center {
   text-align: center;
@@ -443,8 +454,7 @@ nav.collapse {
   align-items: center;
 }
 
-.form-section input,
-.form-section select {
+.form-section input, .form-section select {
   width: 70%;
   padding: 7px;
   font-size: 16px;
@@ -459,24 +469,33 @@ nav.collapse {
   .wrapper {
     margin-left: 0;
   }
-
   nav {
     transform: translateX(-250px);
   }
-
   nav.collapse {
     transform: translateX(0);
   }
-
   header {
     flex-direction: column;
   }
-
   .content {
     padding-top: 100px;
   }
-
   .modal {
     width: 90%;
   }
+}
+
+
+/* -------------------------- Perfil de usuario ---------------------*/
+
+.content_usu {
+  text-align: center;  
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 35px;
+}
+
+.content_usu img {
+  height: 280px;
+  width: 280px;
 }
