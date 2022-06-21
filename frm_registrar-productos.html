@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Real Stock</title>
+  <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="css/estilos.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300&display=swap" rel="stylesheet" />
+  <script defer src="js/script.js"></script>
+  <script defer src="https://kit.fontawesome.com/707789a0bc.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <nav>
+    <div class="logo">
+      <img src="img/logo.png" alt="" />
+    </div>
+    <div class="links">
+      <ul>
+        <li class="link">
+          <a href="principal.html">
+            <i class="fa-solid fa-house-chimney"></i> Inicio
+          </a>
+        </li>
+        <li class="link">
+          <a href="frm_registrar-usuarios.html">
+            <i class="fa-solid fa-user-group"></i> Usuarios
+          </a>
+        </li>
+        <li class="link">
+          <a href="inventarios.html">
+            <i class="fa-solid fa-cart-flatbed"></i> Inventarios
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="wrapper">
+    <header>
+      <div class="section-header">
+        <div class="hamburger-menu">
+          <span></span><span></span><span></span>
+        </div>
+        <div class="location-source">
+          <a href="principal.html" title="Inicio"><i class="fa-solid fa-house-chimney"></i> Inicio </a> / Inventarios /
+          Productos
+        </div>
+      </div>
+      <div class="section-header">
+        <div class="user-tag">
+          <a href="frm_editar-perfil.html"><i class="fa-solid fa-circle-user"></i>Usuario</a>
+        </div>
+        <div class="btn-logout">
+          <a href="index.html"><i class="fa-solid fa-right-from-bracket"></i></a>
+        </div>
+      </div>
+    </header>
+    <div class="content">
+      <div class="items-container">
+        <div class="search-bar">
+          <div class="icon-search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </div>
+          <input type="text" placeholder="Buscar Producto..." />
+        </div>
+        <button class="btn btn-green" data-btn-modal="true" data-modal="#m-registrar-usuario">Agregar Producto</button>
+        <div class="modal-wrapper" id="m-registrar-usuario">
+          <div class="modal">
+            <div class="modal-header">
+              <div>Registrar Producto</div>
+              <i class="fa-solid fa-xmark" data-btn-close="modal"></i>
+            </div>
+            <div class="modal-content">
+              <form action="#">
+                <div class="form-section">
+                  <label for="">Categoria:</label>
+                  <select>
+                    <option value="">Seleccione el tipo de Categoria</option>
+                    <option value="Impresoras">Impresora</option>
+                    <option value="Computadores">Computadores</option>
+                    <option value="Insumos">Insumos</option>
+                  </select>
+                </div>
+                <div class="form-section">
+                  <label for="">Subcategoria:</label>
+                  <select>
+                    <option value="">Seleccione el tipo de subcategoria</option>
+                    <option value="Multifuncional">Multifuncional</option>
+                    <option value="Portatil">Portatil</option>
+                    <option value="Toner">Toner</option>
+                  </select>
+                </div>
+                <div class="form-section">
+                  <label for="">Producto:</label>
+                  <input type="text" placeholder="Seleccione el Producto" />
+                </div>
+                <div class="form-section">
+                  <label for="">Marca:</label>
+                  <input type="text" placeholder="Seleccione la Marca" />
+                </div>
+                <div class="form-section">
+                  <label for="">Modelo:</label>
+                  <input type="number" placeholder="Ingrese el Modelo" />
+                </div>
+                <div class="form-section">
+                  <label for="">No serie:</label>
+                  <input type="number" placeholder="Ingrese el serial" />
+                </div>
+                <div class="form-section">
+                  <label for="">Stock min:</label>
+                  <input type="text" placeholder="Ingrese el stock minimo" />
+                </div>
+                <div class="form-section">
+                  <label for="">Stock maximo:</label>
+                  <input type="select" placeholder="Ingrese el stock maximo" />
+                </div>
+                <div class="form-section">
+                  <label for="">Contador inicial:</label>
+                  <input type="text" placeholder="Ingrese el contador inicial" />
+                </div>
+                <div class="form-section">
+                  <label for="">Anotacion:</label>
+                  <input type="text" placeholder="Ingrese una Anotacion" />
+                </div>
+                <div class="form-section">
+                  <label for="">Estado:</label>
+                  <select>
+                    <option value="">Selecione un Estado</option>
+                    <option value="Rentado">Rentado</option>
+                    <option value="Asignado">Asignado</option>
+                    <option value="Libre">Libre</option>
+                    <option value="Dado de Baja">Dado de Baja</option>
+                  </select>
+                </div>
+                <input class="btn btn-green" type="submit" value="Guardar" />
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="wrapper-table">
+        <table>
+          <tr>
+            <th colspan="13">Productos</th>
+          </tr>
+          <tr class="titles-table">
+            <td class="cell-center">Id</td>
+            <td>Categoria</td>
+            <td>Subcategoria</td>
+            <td>Producto</td>
+            <td>Marca</td>
+            <td>Modelo</td>
+            <td>No Serie</td>
+            <td>Stock max</td>
+            <td>Stock min</td>
+            <td>Contador</td>
+            <td>Anotación</td>
+            <td class="cell-center">Estado</td>
+            <td class="cell-center">Editar</td>
+          </tr>
+          <tr>
+            <td class="cell-center">1</td>
+            <td>Computadores</td>
+            <td>Portatil</td>
+            <td>Laptop</td>
+            <td>Dell</td>
+            <td>Latitude E7440</td>
+            <td>C5C5WZ1</td>
+            <td>100</td>
+            <td>1</td>
+            <td>N/A</td>
+            <td>Buenas condiciones</td>
+            <td class="cell-center"><img src="img/aceptar.png" alt="" /></td>
+            <td class="cell-center">
+              <div title="Editar" title="Editar" data-btn-modal="true" data-modal="#m-editar-usuario"><img
+                  src="img/editar.png" alt="Editar" /></div>
+            </td>
+            <td class="cell-center">
+            </td>
+          <tr>
+            <td class="cell-center">1</td>
+            <td>Impresora</td>
+            <td>Multifuncional</td>
+            <td>Impresion</td>
+            <td>Ricoh</td>
+            <td>MP 5001</td>
+            <td>CNDSA345</td>
+            <td>100</td>
+            <td>1</td>
+            <td>15000</td>
+            <td>Buenas condiciones</td>
+            <td class="cell-center"><img src="img/aceptar.png" alt="" /></td>
+            <td class="cell-center">
+              <div title="Editar" title="Editar" data-btn-modal="true" data-modal="#m-editar-usuario"><img
+                  src="img/editar.png" alt="Editar" /></div>
+            </td>
+            <td class="cell-center">
+            </td>
+          <tr>
+            <td class="cell-center">1</td>
+            <td>Insumos</td>
+            <td>Toner</td>
+            <td>Consumible</td>
+            <td>Image</td>
+            <td>Ricoh MP 5002</td>
+            <td>N/A</td>
+            <td>100</td>
+            <td>1</td>
+            <td>N/A</td>
+            <td>Buenas condiciones</td>
+            <td class="cell-center"><img src="img/aceptar.png" alt="" /></td>
+            <td class="cell-center">
+              <div title="Editar" title="Editar" data-btn-modal="true" data-modal="#m-editar-usuario"><img
+                  src="img/editar.png" alt="Editar" /></div>
+            </td>
+            <td class="cell-center">
+            </td>
+          </tr>
+          <tr>
+
+        </table>
+      </div>
+    </div>
+    <footer>Copyright 2022</footer>
+  </div>
+  <div class="modal-wrapper" id="m-editar-usuario">
+    <div class="modal">
+      <div class="modal-header">
+        <div>Editar información de Producto</div>
+        <i class="fa-solid fa-xmark" data-btn-close="modal"></i>
+      </div>
+      <div class="modal-content">
+        <form action="#">
+          <div class="form-section">
+            <label for="">Categoria:</label>
+            <select>
+              <option value="Impresora">Impresora</option>
+              <option value="Computadores">Computadores</option>
+              <option value="Insumos">Insumos</option>
+            </select>
+          </div>
+          <div class="form-section">
+            <label for="">Subcategoria:</label>
+            <select>
+              <option value="">Seleccione el tipo de movimiento</option>
+              <option value="Multifuncional">Multifuncional</option>
+              <option value="Portatil">Portatil</option>
+              <option value="Toner">Toner</option>
+            </select>
+          </div>
+          <div class="form-section">
+            <label for="">Producto:</label>
+            <input type="text" placeholder="Ingrese un Producto" />
+          </div>
+          <div class="form-section">
+            <label for="">Marca:</label>
+            <input type="text" placeholder="Ingrese una Marca" />
+          </div>
+          <div class="form-section">
+            <label for="">Modelo:</label>
+            <input type="text" placeholder="Ingrese el Modelo" />
+          </div>
+          <div class="form-section">
+            <label for="">No serie:</label>
+            <input type="text" placeholder="Ingrese serial" />
+          </div>
+          <div class="form-section">
+            <label for="">Stock maximo:</label>
+            <input type="number" placeholder="Ingrese un Stock" />
+          </div>
+          <div class="form-section">
+            <label for="">Stock minimo:</label>
+            <input type="number" placeholder="Seleccione un stock min" />
+          </div>
+          <div class="form-section">
+            <label for="">Contador:</label>
+            <input type="number" placeholder="Ingrese Contador maquina" />
+          </div>
+          <div class="form-section">
+            <label for="">Anotacion:</label>
+            <input type="text" placeholder="Ingrese una notacion" />
+          </div>
+          <div class="form-section">
+            <label for="">Estado:</label>
+            <select>
+              <option value="">Selecione un Estado</option>
+              <option value="Rentado">Rentado</option>
+              <option value="Asignado">Asignado</option>
+              <option value="Libre">Libre</option>
+              <option value="Dado de Baja">Dado de Baja</option>
+            </select>
+          </div>
+          <input class="btn btn-green" type="submit" value="Actualizar" />
+        </form>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>
