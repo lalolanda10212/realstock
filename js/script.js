@@ -11,7 +11,7 @@ const btnModals = document.querySelectorAll('[data-btn-modal="true"]')
 btnModals.forEach(element => {
     element.addEventListener("click", (e) => {
         e.preventDefault;
-        let idModal = element.getAttribute("data-modal");
+        const idModal = element.getAttribute("data-modal");
         const modalWrapper = document.querySelector(idModal);
         const modal = document.querySelector(`${idModal} .modal`);
         modalWrapper.classList.add("visible");
@@ -25,7 +25,7 @@ btnCloseModal.forEach(element => {
     modalWrapper.addEventListener("click", (e) => {
         e.preventDefault;
         const modal = element.parentNode.parentNode;
-        if (e.target == element || e.target == modalWrapper) {
+        if (e.target === element || e.target === modalWrapper) {
             modalWrapper.classList.remove("visible");
             modal.classList.remove("visible");
         }
@@ -38,7 +38,7 @@ btnCancelModal.forEach(element => {
     modalWrapper.addEventListener("click", (e) => {
         e.preventDefault;
         const modal = element.parentNode.parentNode.parentNode;
-        if (e.target == element || e.target == modalWrapper) {
+        if (e.target === element || e.target === modalWrapper) {
             modalWrapper.classList.remove("visible");
             modal.classList.remove("visible");
         }
