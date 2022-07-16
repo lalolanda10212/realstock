@@ -88,7 +88,7 @@
                     <option value="usuarios">Usuarios</option>
                     <option value="inventarios">Inventarios</option>
                   </select>
-                  <select required name="permissions[]">
+                  <select name="permissions[]">
                     <option value="">Seleccione el permiso</option>
                     <option value="usuarios">Usuarios</option>
                     <option value="inventarios">Inventarios</option>
@@ -156,15 +156,25 @@
                       <i class="fa-solid fa-xmark" data-btn-close="modal"></i>
                     </div>
                     <div class="modal-content">
-                      <form action="#">
+                      <form action="php/update-rol.php?rol_id=<?php echo $row['rol_id'] ?>" method="post">
                         <div class="form-section">
                           <label for="">Nombre del rol:</label>
-                          <input type="text" placeholder="Ingrese el nombre del rol..." value="<?php echo $row['nombre'] ?>" />
+                          <input type="text" name="rol" placeholder="Ingrese el nombre del rol..." value="<?php echo $row['nombre'] ?>" />
                         </div>
                         <div class="form-section">
                           Añadir permisos:
+                          <select required name="permissions[]">
+                            <option value="">Seleccione el permiso</option>
+                            <option value="usuarios">Usuarios</option>
+                            <option value="inventarios">Inventarios</option>
+                          </select>
+                          <select name="permissions[]">
+                            <option value="">Seleccione el permiso</option>
+                            <option value="usuarios">Usuarios</option>
+                            <option value="inventarios">Inventarios</option>
+                          </select>
                         </div>
-                        <input class="btn btn-green submit" type="submit" value="Actualizar" />
+                        <input class="btn btn-green submit" type="submit" name="update" value="Actualizar" />
                       </form>
                     </div>
                   </div>
