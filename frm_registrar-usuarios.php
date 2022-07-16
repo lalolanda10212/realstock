@@ -172,34 +172,26 @@
                       <i class="fa-solid fa-xmark" data-btn-close="modal"></i>
                     </div>
                     <div class="modal-content">
-                      <form action="#">
+                      <form action="./php/update-user.php?user_id=<?php echo $row['usuario_id'] ?>" method="post">
                         <div class="form-section">
                           <label for="">Usuario:</label>
-                          <input type="text" placeholder="Ingrese el nombre de usuario..." value="<?php echo $row['usuario'] ?>" />
-                        </div>
-                        <div class="form-section">
-                          <label for="">Contraseña:</label>
-                          <input type="password" placeholder="Ingrese la contraseña..." value="<?php echo $row['contrasena'] ?>" />
-                        </div>
-                        <div class="form-section">
-                          <label for="">Confirmar contraseña:</label>
-                          <input type="password" placeholder="Confirme la contraseña..." value="<?php echo $row['contrasena'] ?>" />
+                          <input type="text" placeholder="Ingrese el nombre de usuario..." name="user" value="<?php echo $row['usuario'] ?>" />
                         </div>
                         <div class="form-section">
                           <label for="">Email:</label>
-                          <input type="text" placeholder="Ingrese el email..." value="<?php echo $row['email'] ?>" />
+                          <input type="text" placeholder="Ingrese el email..." name="email" value="<?php echo $row['email'] ?>" />
                         </div>
                         <div class="form-section">
                           <label for="">Nombres:</label>
-                          <input type="text" placeholder="Ingrese nombre..." value="<?php echo $row['nombres'] ?>" />
+                          <input type="text" placeholder="Ingrese nombre..." name="name" value="<?php echo $row['nombres'] ?>" />
                         </div>
                         <div class="form-section">
                           <label for="">Apellidos:</label>
-                          <input type="text" placeholder="Ingrese apellidos..." value="<?php echo $row['apellidos'] ?>" />
+                          <input type="text" placeholder="Ingrese apellidos..." name="last_name" value="<?php echo $row['apellidos'] ?>" />
                         </div>
                         <div class="form-section">
                           <label for="">Estado:</label>
-                          <select name="status" require>
+                          <select name="status" required>
                             <?php
                             if ($row['estado'] == "activo") {
                             ?>
@@ -217,7 +209,7 @@
                             ?>
                           </select>
                         </div>
-                        <input class="btn btn-green submit" type="submit" value="Actualizar" />
+                        <input class="btn btn-green submit" type="submit" name="update" value="Actualizar" />
                       </form>
                     </div>
                   </div>
