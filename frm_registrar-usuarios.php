@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Real Stock</title>
+  <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="css/estilos.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300&display=swap" rel="stylesheet" />
+  <script defer src="js/script.js"></script>
+  <script defer src="https://kit.fontawesome.com/707789a0bc.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <nav>
+    <div class="logo">
+      <a href="principal.html"><img src="img/logo.png" alt="" /></a>
+    </div>
+    <div class="links">
+      <ul>
+        <li class="link">
+          <a href="principal.html">
+            <i class="fa-solid fa-house-chimney"></i> Inicio
+          </a>
+        </li>
+        <li class="link">
+          <a href="#">
+            <i class="fa-solid fa-user-group"></i> Usuarios
+          </a>
+        </li>
+        <li class="link">
+          <a href="inventarios.html">
+            <i class="fa-solid fa-cart-flatbed"></i> Inventarios
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="wrapper">
+    <header>
+      <div class="section-header">
+        <div class="hamburger-menu">
+          <span></span><span></span><span></span>
+        </div>
+        <div class="location-source">
+          <a href="principal.html"><i class="fa-solid fa-house-chimney"></i> Inicio</a>
+          / Usuarios
+        </div>
+      </div>
+      <div class="section-header">
+        <div class="user-tag">
+          <a href="frm_editar-perfil.html"><i class="fa-solid fa-circle-user"></i>Usuario</a>
+        </div>
+        <div class="btn-logout">
+          <a href="index.html"><i class="fa-solid fa-right-from-bracket"></i></a>
+        </div>
+      </div>
+    </header>
+    <div class="content">
+      <div class="items-container">
+        <a href="frm_crear-roles.html" class="btn btn-blue">Roles</a>
+        <div class="search-bar">
+          <div class="icon-search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </div>
+          <input type="text" placeholder="Buscar usuario..." />
+        </div>
+        <button class="btn btn-green" data-btn-modal="true" data-modal="#m-registrar-usuario">Registrar</button>
+        <div class="modal-wrapper" id="m-registrar-usuario">
+          <div class="modal">
+            <div class="modal-header">
+              <div>Registrar usuario</div>
+              <i class="fa-solid fa-xmark" data-btn-close="modal"></i>
+            </div>
+            <div class="modal-content">
+              <form action="php/add-user.php" method="post">
+                <div class="form-section">
+                  <label for="">Usuario:</label>
+                  <input type="text" name="user" required placeholder="Ingrese el nombre de usuario..." />
+                </div>
+                <div class="form-section">
+                  <label for="">Contraseña:</label>
+                  <input type="password" name="password" required placeholder="Ingrese la contraseña..." />
+                </div>
+                <div class="form-section">
+                  <label for="">Confirmar contraseña:</label>
+                  <input type="password" name="confirm_pass" required placeholder="Confirme la contraseña..." />
+                </div>
+                <div class="form-section">
+                  <label for="">Email:</label>
+                  <input type="text" name="email" required placeholder="Ingrese el email..." />
+                </div>
+                <div class="form-section">
+                  <label for="">Nombres:</label>
+                  <input type="text" name="name" required placeholder="Ingrese nombre..." />
+                </div>
+                <div class="form-section">
+                  <label for="">Apellidos:</label>
+                  <input type="text" name="last_name" required placeholder="Ingrese apellidos..." />
+                </div>
+                <div class="form-section">
+                  <label for="">Estado</label>
+                  <select name="status" required>
+                    <option value="">Seleccione el estado del usuario</option>
+                    <option value="activo">Activo</option>
+                    <option value="desactivo">Desactivo</option>
+                  </select>
+                </div>
+                <input class="btn btn-green" type="submit" name="register" value="Registrar" />
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="wrapper-table">
+        <table>
+          <tr>
+            <th colspan="8">Usuarios</th>
+          </tr>
+          <tr class="titles-table">
+            <td class="cell-center">Id</td>
+            <td>Usuario</td>
+            <td>Email</td>
+            <td>Nombres</td>
+            <td>Apellidos</td>
+            <td class="cell-center">Estado</td>
+            <td class="cell-center">Editar</td>
+            <td class="cell-center">Asignar</td>
+          </tr>
+
+          <?php
+          include_once 'php/config.php';
+          $query = "SELECT * FROM tbl_usuario";
+          $result = mysqli_query($conn, $query);
+
+          if ($result == true) {
+            if (mysqli_num_rows($result) > 0) {
+              foreach ($result as $row) {
+          ?>
+                <tr>
+                  <td class="cell-center"><?php echo $row['usuario_id'] ?></td>
+                  <td><?php echo $row['usuario'] ?></td>
+                  <td><?php echo $row['email'] ?></td>
+                  <td><?php echo $row['nombres'] ?></td>
+                  <td><?php echo $row['apellidos'] ?></td>
+                  <?php
+                  if ($row['estado'] == "activo") {
+                    $status_img = "aceptar.png";
+                  } else {
+                    $status_img = "cancelar.png";
+                  }
+                  ?>
+                  <td class="cell-center"><img src="img/<?php echo $status_img ?>" alt="" /></td>
+                  <td class="cell-center">
+                    <div title="Editar" data-btn-modal="true" data-modal="#m-editar-usuario_<?php echo $row['usuario_id'] ?>"><img src="img/editar.png" alt="Editar" /></div>
+                  </td>
+                  <td class="cell-center">
+                    <button class="btn btn-purple" data-btn-modal="true" data-modal="#m-asignar-rol">
+                      <i class="fa-solid fa-unlock-keyhole"></i>Asignar rol
+                    </button>
+                  </td>
+                </tr>
+
+                <div class="modal-wrapper" id="m-editar-usuario_<?php echo $row['usuario_id'] ?>">
+                  <div class="modal">
+                    <div class="modal-header">
+                      <div>Editar información de usuario</div>
+                      <i class="fa-solid fa-xmark" data-btn-close="modal"></i>
+                    </div>
+                    <div class="modal-content">
+                      <form action="#">
+                        <div class="form-section">
+                          <label for="">Usuario:</label>
+                          <input type="text" placeholder="Ingrese el nombre de usuario..." value="<?php echo $row['usuario'] ?>" />
+                        </div>
+                        <div class="form-section">
+                          <label for="">Contraseña:</label>
+                          <input type="password" placeholder="Ingrese la contraseña..." value="<?php echo $row['contrasena'] ?>" />
+                        </div>
+                        <div class="form-section">
+                          <label for="">Confirmar contraseña:</label>
+                          <input type="password" placeholder="Confirme la contraseña..." value="<?php echo $row['contrasena'] ?>" />
+                        </div>
+                        <div class="form-section">
+                          <label for="">Email:</label>
+                          <input type="text" placeholder="Ingrese el email..." value="<?php echo $row['email'] ?>" />
+                        </div>
+                        <div class="form-section">
+                          <label for="">Nombres:</label>
+                          <input type="text" placeholder="Ingrese nombre..." value="<?php echo $row['nombres'] ?>" />
+                        </div>
+                        <div class="form-section">
+                          <label for="">Apellidos:</label>
+                          <input type="text" placeholder="Ingrese apellidos..." value="<?php echo $row['apellidos'] ?>" />
+                        </div>
+                        <div class="form-section">
+                          <label for="">Estado:</label>
+                          <select name="status" require>
+                            <?php
+                            if ($row['estado'] == "activo") {
+                            ?>
+                              <option value="">Seleccione el estado del usuario</option>
+                              <option value="activo" selected>Activo</option>
+                              <option value="desactivo">Desactivo</option>
+                            <?php
+                            } else {
+                            ?>
+                              <option value="">Seleccione el estado del usuario</option>
+                              <option value="activo">Activo</option>
+                              <option value="desactivo" selected>Desactivo</option>
+                            <?php
+                            }
+                            ?>
+                          </select>
+                        </div>
+                        <input class="btn btn-green submit" type="submit" value="Actualizar" />
+                      </form>
+                    </div>
+                  </div>
+                </div>
+          <?php
+              }
+            } else {
+              echo '<script type="text/javascript">
+                alert("No se encontraron usuarios registrados");
+                </script>';
+            }
+          } else {
+            echo '<script type="text/javascript">
+              alert("Error al consultar la lista de usuarios");
+              </script>';
+          }
+
+          ?>
+        </table>
+      </div>
+    </div>
+    <footer>Copyright 2022</footer>
+  </div>
+
+  <div class="modal-wrapper" id="m-asignar-rol">
+    <div class="modal">
+      <div class="modal-header">
+        <div>Asignar rol</div>
+        <i class="fa-solid fa-xmark" data-btn-close="modal"></i>
+      </div>
+      <div class="modal-content">
+        <form action="#">
+          <div class="form-section">
+            <label for="">Rol:</label>
+            <select>
+              <option value="" selected>Seleccione el rol</option>
+              <option value="Super administrador">Super administrador</option>
+              <option value="Administrador">Administrador</option>
+              <option value="Usuario">Usuario</option>
+            </select>
+          </div>
+          <input class="btn btn-green" type="submit" value="Asignar" />
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

@@ -13,7 +13,7 @@ if (isset($_POST['register'])) {
     if ($password !== $confirm_pass) {
         echo '<script type="text/javascript">
         alert("Las contraseñas no coinciden. Intente de nuevo");
-        window.location.href = "../frm_registrar-usuarios.html";
+        window.location.href = "../frm_registrar-usuarios.php";
         </script>';
         exit();
     }
@@ -25,12 +25,12 @@ if (isset($_POST['register'])) {
     if (($stmt == true) && ($stmt -> affected_rows === 1)) {
         echo '<script type="text/javascript">
         alert("El usuario '. $user .' se ha creado con exito");
-        window.location.href = "../frm_registrar-usuarios.html";
+        window.location.href = "../frm_registrar-usuarios.php";
         </script>';
     } else {
         echo '<script type="text/javascript">
         alert("Error al registrar el usuario");
-        window.location.href = "../frm_registrar-usuarios.html";
+        window.location.href = "../frm_registrar-usuarios.php";
         </script>';
     }
     $stmt->close();
