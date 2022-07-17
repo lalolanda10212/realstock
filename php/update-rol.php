@@ -23,5 +23,6 @@ if (isset($_POST['update'], $_GET['rol_id'])) {
         window.location.href = "../frm_crear-roles.php";
         </script>';
     }
+    $stmt->close();
+    $conn->close();
 }
-?>

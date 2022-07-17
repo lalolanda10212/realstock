@@ -17,7 +17,7 @@ if (isset($_POST['login'])) {
             $_SESSION['username'] = $usuario;
             echo '<script type="text/javascript">
             alert("Bienvenid@: '. $usuario .'");
-            window.location.href = "../principal.html";
+            window.location.href = "../principal.php";
             </script>';
         } else {
             echo '<script type="text/javascript">
@@ -31,6 +31,8 @@ if (isset($_POST['login'])) {
 		window.location.href = "../index.html";
 		</script>';
     }
+    $stmt->close();
+    $conn->close();
 }
 
 ?>

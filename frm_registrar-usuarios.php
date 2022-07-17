@@ -23,7 +23,7 @@
     <div class="links">
       <ul>
         <li class="link">
-          <a href="principal.html">
+          <a href="principal.php">
             <i class="fa-solid fa-house-chimney"></i> Inicio
           </a>
         </li>
@@ -47,7 +47,7 @@
           <span></span><span></span><span></span>
         </div>
         <div class="location-source">
-          <a href="principal.html"><i class="fa-solid fa-house-chimney"></i> Inicio</a>
+          <a href="principal.php"><i class="fa-solid fa-house-chimney"></i> Inicio</a>
           / Usuarios
         </div>
       </div>
