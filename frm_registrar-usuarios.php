@@ -178,6 +178,14 @@
                           <input type="text" placeholder="Ingrese el nombre de usuario..." name="user" value="<?php echo $row['usuario'] ?>" />
                         </div>
                         <div class="form-section">
+                          <label for="">Contraseña:</label>
+                          <input type="text" placeholder="Ingrese el nombre de usuario..." name="password"/>
+                        </div>
+                        <div class="form-section">
+                          <label for="">Confirmar contraseña:</label>
+                          <input type="text" placeholder="Ingrese el nombre de usuario..." name="confirm_pass"/>
+                        </div>
+                        <div class="form-section">
                           <label for="">Email:</label>
                           <input type="text" placeholder="Ingrese el email..." name="email" value="<?php echo $row['email'] ?>" />
                         </div>

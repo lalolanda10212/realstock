@@ -19,15 +19,15 @@
     <br>
     <section>
         <p>¡Hola! Ingresa tu usuario y contraseña</p>
-            <form>
-                <input type="text" name="usuario" placeholder="Nombre de usuario" class="input" value="Admin123"></input>
+            <form action="./php/login.php" method="post">
+                <input type="text" name="user" required autocomplete="off placeholder="Nombre de usuario" class="input"></input>
                 <br>
                 <br>
-                <input type="password" name="password" placeholder="Contraseña" class="input" value="admin123"></input>
+                <input type="password" name="password" required autocomplete="off placeholder="Contraseña" class="input"></input>
                 <br>
                 <br>
+                <input type="submit" name="login" id="login" value="Iniciar sesión">
             </form>
-        <a href="principal.html" id="login">Iniciar sesion</a>
         <div id="line"></div>
         <div>
             <a class="olvido" id="olvido">¿Olvidaste tu contraseña?</a>
