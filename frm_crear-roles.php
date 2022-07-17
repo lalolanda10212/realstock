@@ -142,7 +142,7 @@
                     <div class="modal-content">
                       <h2>¿Está seguro de eliminar “<?php echo $row['nombre'] ?>”?</h2>
                       <div class="options-delete">
-                        <button class="btn btn-red">Eliminar</button>
+                        <a href="./php/delete-rol.php?rol_id=<?php echo $row['rol_id'] ?>" class="btn btn-red">Eliminar</a>
                         <button class="btn btn-gray" data-btn-cancel="modal">Cancelar</button>
                       </div>
                     </div>
