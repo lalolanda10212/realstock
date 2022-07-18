@@ -19,7 +19,7 @@
 <body>
   <nav>
     <div class="logo">
-      <a href="principal.php"><img src="img/logo.png" alt="" /></a>
+      <img src="img/logo.png" alt="" />
     </div>
     <div class="links">
       <ul>
@@ -48,7 +48,7 @@
           <span></span><span></span><span></span>
         </div>
         <div class="location-source">
-          <a href="principal.php"><i class="fa-solid fa-house-chimney"></i> Inicio /</a> Inventarios / Categorías
+          <a href="principal.php"><i class="fa-solid fa-house-chimney"></i> Inicio </a> / Inventarios / Subcategorías
         </div>
       </div>
       <div class="section-header">
@@ -66,20 +66,53 @@
           <div class="icon-search">
             <i class="fa-solid fa-magnifying-glass"></i>
           </div>
-          <input type="text" placeholder="Buscar categoría..." />
+          <input type="text" placeholder="Buscar Subcategoría..." />
         </div>
-        <button class="btn btn-green" data-btn-modal="true" data-modal="#m-crear-categoria">Registar Categoría</button>
-        <div class="modal-wrapper" id="m-crear-categoria">
+        <button class="btn btn-green" data-btn-modal="true" data-modal="#m-crear-subcategoria">Registar Subcategoría</button>
+        <div class="modal-wrapper" id="m-crear-subcategoria">
           <div class="modal">
             <div class="modal-header">
-              <div>Registar Categoría</div>
+              <div>Registar Subcategoría</div>
               <i class="fa-solid fa-xmark" data-btn-close="modal"></i>
             </div>
             <div class="modal-content">
-              <form action="./php/add-category.php" method="post" autocomplete="off">
+              <form action="./php/add-subcategory.php" method="post">
                 <div class="form-section">
-                  <label for="">Nombre de categoría:</label>
-                  <input type="text" name="category" required placeholder="Ingrese el nombre de categoría..." />
+                  <label for="">Categoría:</label>
+                  <?php
+                  include_once './php/config.php';
+                  $query_cat = "SELECT categoria_id, nombre FROM tbl_categoria";
+                  $result_cat = mysqli_query($conn, $query_cat);
+
+                  if ($result_cat) {
+                    if (mysqli_num_rows($result_cat) > 0) {
+                  ?>
+                      <select required name="category">
+                        <option value="">Seleccione la categoría</option>
+                        <?php
+                        foreach ($result_cat as $row_cat) {
+                        ?>
+                          <option value="<?php echo $row_cat['categoria_id'] ?>"><?php echo $row_cat['nombre'] ?></option>
+                        <?php
+                        }
+                        ?>
+                      </select>
+                    <?php
+                    } else {
+                    ?>
+                      <input type="text" disabled value="No se encontraron categorías registradas">
+                  <?php
+                    }
+                  } else {
+                    echo '<script type="text/javascript">
+                    alert("Error al consultar las categorías");
+                    </script>';
+                  }
+                  ?>
+                </div>
+                <div class="form-section">
+                  <label for="">Nombre:</label>
+                  <input type="text" name="subcategory" required placeholder="Ingrese el nombre de la subcategoría..." />
                 </div>
                 <div class="form-section">
                   <label for="">Descripción:</label>
@@ -95,18 +128,18 @@
       <div class="wrapper-table">
         <table>
           <tr>
-            <th colspan="8">Categorías</th>
+            <th colspan="8">Subcategorías</th>
           </tr>
           <tr class="titles-table">
             <td class="cell-center">Id</td>
-            <td>Nombre </td>
+            <td>Categoría </td>
+            <td>Nombre</td>
             <td>Descripción</td>
             <td class="cell-center">Eliminar</td>
             <td class="cell-center">Editar</td>
           </tr>
           <?php
-          include_once './php/config.php';
-          $query = "SELECT * FROM tbl_categoria";
+          $query = "SELECT * FROM tbl_subcategoria";
           $result = mysqli_query($conn, $query);
 
           if ($result) {
@@ -114,59 +147,71 @@
               foreach ($result as $row) {
           ?>
                 <tr>
-                  <td class="cell-center"><?php echo $row['categoria_id'] ?></td>
+                  <td class="cell-center"><?php echo $row['subcategoria_id'] ?></td>
+                  <td><?php echo $row['tbl_categoria_id'] ?></td>
                   <td><?php echo $row['nombre'] ?></td>
                   <td><?php echo $row['descripcion'] ?></td>
                   <td class="cell-center">
-                    <div data-btn-modal="true" data-modal="#m-eliminar-rol_<?php echo $row['categoria_id'] ?>"><img src="img/delete.png" alt="" /></div>
+                    <div data-btn-modal="true" data-modal="#m-eliminar-rol_<?php echo $row['subcategoria_id'] ?>"><img src="img/delete.png" alt="" /></div>
                   </td>
                   <td class="cell-center">
-                    <div title="Editar" data-btn-modal="true" data-modal="#m-editar-rol_<?php echo $row['categoria_id'] ?>"><img src="img/editar.png" alt="Editar" /></div>
+                    <div title="Editar" data-btn-modal="true" data-modal="#m-editar-rol_<?php echo $row['subcategoria_id'] ?>"><img src="img/editar.png" alt="Editar" /></div>
                   </td>
                 </tr>
 
-                <div class="modal-wrapper" id="m-eliminar-rol_<?php echo $row['categoria_id'] ?>">
+                <div class="modal-wrapper" id="m-eliminar-rol_<?php echo $row['subcategoria_id'] ?>">
                   <div class="modal">
                     <div class="modal-header">
-                      <div>Eliminar categoría</div>
+                      <div>Eliminar categoria</div>
                       <i class="fa-solid fa-xmark" data-btn-close="modal"></i>
                     </div>
                     <div class="modal-content">
-                      <h2>¿Está seguro de eliminar “<?php echo $row['nombre'] ?>"</h2>
+                      <h2>¿Está seguro de eliminar “<?php echo $row['nombre'] ?>"?</h2>
                       <div class="options-delete">
-                        <a href="./php/delete-category.php?category_id=<?php echo $row['categoria_id'] ?>" class="btn btn-red">Eliminar</a>
+                        <a href="./php/delete-subcategory.php?php echo $row['subcategoria_id'] ?>" class="btn btn-red">Eliminar</a>
                         <button class="btn btn-gray" data-btn-cancel="modal">Cancelar</button>
                       </div>
                     </div>
                   </div>
                 </div>
-
-                <div class="modal-wrapper" id="m-editar-rol_<?php echo $row['categoria_id'] ?>">
+                <div class="modal-wrapper" id="m-editar-rol_<?php echo $row['subcategoria_id'] ?>">
                   <div class="modal">
                     <div class="modal-header">
-                      <div>Editar categoría</div>
+                      <div>Editar categoria</div>
                       <i class="fa-solid fa-xmark" data-btn-close="modal"></i>
                     </div>
                     <div class="modal-content">
-                      <form action="./php/update-category.php?category_id=<?php echo $row['categoria_id'] ?>" method="post" autocomplete="off">
+                      <form action="#">
                         <div class="form-section">
-                          <label for="">Nombre categoría:</label>
-                          <input type="text" name="category" required value="<?php echo $row['nombre'] ?>" placeholder="Ingrese el nombre de la categoría..." />
+                          <label for="">Categoria:</label>
+                          <input type="text" placeholder="Ingrese el nombre de la categoria..." />
+                        </div>
+                        <div class="form-section">
+                          <label for="">Nombre:</label>
+                          <input type="text" placeholder="Ingrese el nombre de la categoria..." />
                         </div>
                         <div class="form-section">
                           <label for="">Descripción:</label>
                           <br>
-                          <textarea name="description" required rows="8" cols="49"><?php echo $row['descripcion'] ?></textarea>
+                          <textarea name="descripcion" rows="8" cols="49"></textarea>
                         </div>
                         </label>
-                        <input class="btn btn-green submit" type="submit" name="update" value="Actualizar" />
+                        <input class="btn btn-green submit" type="submit" value="Actualizar" />
                       </form>
                     </div>
                   </div>
                 </div>
           <?php
               }
+            } else {
+              echo '<script type="text/javascript">
+              alert("No se encontraron subcategorías registradas");
+              </script>';
             }
+          } else {
+            echo '<script type="text/javascript">
+            alert("Error al consultar las subcategorías");
+            </script>';
           }
           ?>
         </table>

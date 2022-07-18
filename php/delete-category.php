@@ -1,4 +1,4 @@
-<?php 
+<?php
 require './config.php';
 
 if (isset($_GET['category_id'])) {

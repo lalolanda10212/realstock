@@ -1,7 +1,7 @@
 <?php 
-require 'config.php';
-
 if (isset($_POST['save'])) {
+    require 'config.php';
+    
     $rol = $_POST['rol'];
     $permissions = $_POST['permissions'];
     $per_json = json_encode($permissions);
@@ -24,5 +24,3 @@ if (isset($_POST['save'])) {
     $stmt->close();
     $conn->close();
 }
-
-?>

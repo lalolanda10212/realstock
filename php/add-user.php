@@ -1,7 +1,7 @@
-<?php 
-require 'config.php';
-
+<?php
 if (isset($_POST['register'])) {
+    require 'config.php';
+
     $user = $_POST['user'];
     $password = $_POST['password'];
     $confirm_pass = $_POST['confirm_pass'];
@@ -17,14 +17,14 @@ if (isset($_POST['register'])) {
         </script>';
         exit();
     }
-    $password = password_hash($password, PASSWORD_DEFAULT, array('cost' =>12));
+    $password = password_hash($password, PASSWORD_DEFAULT, array('cost' => 12));
     $stmt = $conn->prepare("INSERT INTO tbl_usuario (usuario, contrasena, estado, email, nombres, apellidos) VALUES (?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("ssssss", $user, $password, $status, $email, $name, $last_name);
 
     $stmt->execute();
-    if (($stmt) && ($stmt -> affected_rows == 1)) {
+    if (($stmt) && ($stmt->affected_rows == 1)) {
         echo '<script type="text/javascript">
-        alert("El usuario: '. $user .' se ha creado con exito");
+        alert("El usuario: ' . $user . ' se ha creado con exito");
         window.location.href = "../frm_registrar-usuarios.php";
         </script>';
     } else {

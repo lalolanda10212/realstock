@@ -105,7 +105,7 @@ require_once './php/session-data.php';
           </a>
         </div>
         <div class="card">
-          <a href="frm_crear-subcategorias.html">
+          <a href="frm_crear-subcategorias.php">
             <div class="card-content">
               <div class="icono">
                 <img src="img/lineas-de-opciones.svg" alt="" />

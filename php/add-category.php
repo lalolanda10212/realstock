@@ -11,17 +11,15 @@ if (isset($_POST['save'])) {
     $stmt->execute();
     if (($stmt) && ($stmt -> affected_rows == 1)) {
         echo '<script type="text/javascript">
-        alert("Se creo la categoria: '. $category .' correctamente");
+        alert("Se creó la categoría: '. $category .' correctamente");
         window.location.href = "../frm_crear-categorias.php";
         </script>';
     } else {
         echo '<script type="text/javascript">
-        alert("Error al registrar la categoria");
+        alert("Error al registrar la categoría");
         window.location.href = "../frm_crear-categorias.php";
         </script>';
     }
     $stmt->close();
     $conn->close();
 }
-
-?>
