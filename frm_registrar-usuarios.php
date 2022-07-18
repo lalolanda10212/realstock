@@ -1,3 +1,4 @@
+<?php require_once './php/session-data.php' ?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -18,7 +19,7 @@
 <body>
   <nav>
     <div class="logo">
-      <a href="principal.html"><img src="img/logo.png" alt="" /></a>
+      <img src="img/logo.png" alt="" />
     </div>
     <div class="links">
       <ul>
@@ -53,10 +54,10 @@
       </div>
       <div class="section-header">
         <div class="user-tag">
-          <a href="frm_editar-perfil.html"><i class="fa-solid fa-circle-user"></i>Usuario</a>
+          <a href="frm_editar-perfil.php"><i class="fa-solid fa-circle-user"></i><?php echo $_SESSION['username'] ?></a>
         </div>
         <div class="btn-logout">
-          <a href="index.html"><i class="fa-solid fa-right-from-bracket"></i></a>
+          <a href="./php/logout.php"><i class="fa-solid fa-right-from-bracket"></i></a>
         </div>
       </div>
     </header>
@@ -179,11 +180,11 @@
                         </div>
                         <div class="form-section">
                           <label for="">Contraseña:</label>
-                          <input type="text" placeholder="Ingrese el nombre de usuario..." name="password"/>
+                          <input type="password" placeholder="Ingrese la contraseña..." name="password" />
                         </div>
                         <div class="form-section">
                           <label for="">Confirmar contraseña:</label>
-                          <input type="text" placeholder="Ingrese el nombre de usuario..." name="confirm_pass"/>
+                          <input type="password" placeholder="Confirme la contraseña..." name="confirm_pass" />
                         </div>
                         <div class="form-section">
                           <label for="">Email:</label>

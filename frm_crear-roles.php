@@ -1,3 +1,4 @@
+<?php require_once './php/session-data.php' ?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -18,12 +19,12 @@
 <body>
   <nav>
     <div class="logo">
-      <a href="principal.html"><img src="img/logo.png" alt="" /></a>
+      <img src="img/logo.png" alt="" />
     </div>
     <div class="links">
       <ul>
         <li class="link">
-          <a href="principal.html">
+          <a href="principal.php">
             <i class="fa-solid fa-house-chimney"></i> Inicio
           </a>
         </li>
@@ -47,16 +48,15 @@
           <span></span><span></span><span></span>
         </div>
         <div class="location-source">
-          <a href="principal.html"><i class="fa-solid fa-house-chimney"></i> Inicio /</a>
-          <a href="frm_registrar-usuarios.html">Usuarios / </a> Roles
+          <a href="principal.php"><i class="fa-solid fa-house-chimney"></i> Inicio /</a> Usuarios / Roles
         </div>
       </div>
       <div class="section-header">
         <div class="user-tag">
-          <a href="frm_editar-perfil.html"><i class="fa-solid fa-circle-user"></i>Usuario</a>
+          <a href="frm_editar-perfil.php"><i class="fa-solid fa-circle-user"></i><?php echo $_SESSION['username'] ?></a>
         </div>
         <div class="btn-logout">
-          <a href="index.html"><i class="fa-solid fa-right-from-bracket"></i></a>
+          <a href="./php/logout.php"><i class="fa-solid fa-right-from-bracket"></i></a>
         </div>
       </div>
     </header>
