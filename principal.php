@@ -34,7 +34,7 @@
           </a>
         </li>
         <li class="link">
-          <a href="inventarios.html">
+          <a href="inventarios.php">
             <i class="fa-solid fa-cart-flatbed"></i> Inventarios
           </a>
         </li>
@@ -73,7 +73,7 @@
           </a>
         </div>
         <div class="card">
-          <a href="inventarios.html">
+          <a href="inventarios.php">
             <div class="card-content">
               <div class="icono">
                 <img src="img/cart-flatbed-solid.svg" alt="" />

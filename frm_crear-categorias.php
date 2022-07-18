@@ -19,7 +19,7 @@
 <body>
   <nav>
     <div class="logo">
-      <img src="img/logo.png" alt="" />
+      <a href="principal.php"><img src="img/logo.png" alt="" /></a>
     </div>
     <div class="links">
       <ul>
@@ -48,7 +48,7 @@
           <span></span><span></span><span></span>
         </div>
         <div class="location-source">
-          <a href="principal.php"><i class="fa-solid fa-house-chimney"></i> Inicio /</a> Usuarios / Roles
+          <a href="principal.php"><i class="fa-solid fa-house-chimney"></i> Inicio /</a> Inventarios / Categorias
         </div>
       </div>
       <div class="section-header">
@@ -66,33 +66,25 @@
           <div class="icon-search">
             <i class="fa-solid fa-magnifying-glass"></i>
           </div>
-          <input type="text" placeholder="Buscar rol..." />
+          <input type="text" placeholder="Buscar categoria..." />
         </div>
-        <button class="btn btn-green" data-btn-modal="true" data-modal="#m-crear-rol">Crear nuevo rol</button>
-        <div class="modal-wrapper" id="m-crear-rol">
+        <button class="btn btn-green" data-btn-modal="true" data-modal="#m-crear-categoria">Registar Categoria</button>
+        <div class="modal-wrapper" id="m-crear-categoria">
           <div class="modal">
             <div class="modal-header">
-              <div>Crear nuevo rol</div>
+              <div>Registar Categoria</div>
               <i class="fa-solid fa-xmark" data-btn-close="modal"></i>
             </div>
             <div class="modal-content">
-              <form action="php/add-rol.php" method="post">
+              <form action="./php/add-category.php" method="post" autocomplete="off">
                 <div class="form-section">
-                  <label for="">Nombre del rol:</label>
-                  <input type="text" required name="rol" placeholder="Ingrese el nombre del rol..." />
+                  <label for="">Nombre de categoria:</label>
+                  <input type="text" name="category" required placeholder="Ingrese el nombre de categoria..." />
                 </div>
                 <div class="form-section">
-                  Añadir permisos:
-                  <select required name="permissions[]">
-                    <option value="">Seleccione el permiso</option>
-                    <option value="usuarios">Usuarios</option>
-                    <option value="inventarios">Inventarios</option>
-                  </select>
-                  <select name="permissions[]">
-                    <option value="">Seleccione el permiso</option>
-                    <option value="usuarios">Usuarios</option>
-                    <option value="inventarios">Inventarios</option>
-                  </select>
+                  <label for="">Descripción:</label>
+                  <br>
+                  <textarea name="description" required rows="8" cols="49"></textarea>
                 </div>
                 <input class="btn btn-green" type="submit" name="save" value="Guardar" />
               </form>
@@ -103,101 +95,86 @@
       <div class="wrapper-table">
         <table>
           <tr>
-            <th colspan="8">Roles</th>
+            <th colspan="8">Categorias</th>
           </tr>
           <tr class="titles-table">
             <td class="cell-center">Id</td>
-            <td>Nombre del rol</td>
-            <td>Permisos</td>
+            <td>Nombre </td>
+            <td>Descripción</td>
             <td class="cell-center">Eliminar</td>
             <td class="cell-center">Editar</td>
           </tr>
           <?php
-          include_once 'php/config.php';
-          $query = "SELECT * FROM tbl_rol";
+          include_once './php/config.php';
+          $query = "SELECT * FROM tbl_categoria";
           $result = mysqli_query($conn, $query);
 
-          if ($result == true) {
+          if ($result) {
             if (mysqli_num_rows($result) > 0) {
               foreach ($result as $row) {
           ?>
                 <tr>
-                  <td class="cell-center"><?php echo $row['rol_id'] ?></td>
+                  <td class="cell-center"><?php echo $row['categoria_id'] ?></td>
                   <td><?php echo $row['nombre'] ?></td>
-                  <td><?php echo $row['permisos'] ?></td>
+                  <td><?php echo $row['descripcion'] ?></td>
                   <td class="cell-center">
-                    <div data-btn-modal="true" data-modal="#m-eliminar-rol_<?php echo $row['rol_id'] ?>"><img src="img/delete.png" alt="" /></div>
+                    <div data-btn-modal="true" data-modal="#m-eliminar-rol_<?php echo $row['categoria_id'] ?>"><img src="img/delete.png" alt="" /></div>
                   </td>
                   <td class="cell-center">
-                    <div title="Editar" data-btn-modal="true" data-modal="#m-editar-rol_<?php echo $row['rol_id'] ?>"><img src="img/editar.png" alt="Editar" /></div>
+                    <div title="Editar" data-btn-modal="true" data-modal="#m-editar-rol_<?php echo $row['categoria_id'] ?>"><img src="img/editar.png" alt="Editar" /></div>
                   </td>
                 </tr>
 
-                <div class="modal-wrapper" id="m-eliminar-rol_<?php echo $row['rol_id'] ?>">
+                <div class="modal-wrapper" id="m-eliminar-rol_<?php echo $row['categoria_id'] ?>">
                   <div class="modal">
                     <div class="modal-header">
-                      <div>Eliminar rol</div>
+                      <div>Eliminar categoria</div>
                       <i class="fa-solid fa-xmark" data-btn-close="modal"></i>
                     </div>
                     <div class="modal-content">
-                      <h2>¿Está seguro de eliminar “<?php echo $row['nombre'] ?>”?</h2>
+                      <h2>¿Está seguro de eliminar “<?php echo $row['nombre'] ?>"</h2>
                       <div class="options-delete">
-                        <a href="./php/delete-rol.php?rol_id=<?php echo $row['rol_id'] ?>" class="btn btn-red">Eliminar</a>
+                        <a href="./php/delete-category.php?category_id=<?php echo $row['categoria_id'] ?>" class="btn btn-red">Eliminar</a>
                         <button class="btn btn-gray" data-btn-cancel="modal">Cancelar</button>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                <div class="modal-wrapper" id="m-editar-rol_<?php echo $row['rol_id'] ?>">
+                <div class="modal-wrapper" id="m-editar-rol_<?php echo $row['categoria_id'] ?>">
                   <div class="modal">
                     <div class="modal-header">
-                      <div>Editar rol</div>
+                      <div>Editar categoria</div>
                       <i class="fa-solid fa-xmark" data-btn-close="modal"></i>
                     </div>
                     <div class="modal-content">
-                      <form action="php/update-rol.php?rol_id=<?php echo $row['rol_id'] ?>" method="post">
+                      <form action="#">
                         <div class="form-section">
-                          <label for="">Nombre del rol:</label>
-                          <input type="text" name="rol" placeholder="Ingrese el nombre del rol..." value="<?php echo $row['nombre'] ?>" />
+                          <label for="">Nombre categoria:</label>
+                          <input type="text" placeholder="Ingrese el nombre de la categoria..." />
                         </div>
                         <div class="form-section">
-                          Añadir permisos:
-                          <select required name="permissions[]">
-                            <option value="">Seleccione el permiso</option>
-                            <option value="usuarios">Usuarios</option>
-                            <option value="inventarios">Inventarios</option>
-                          </select>
-                          <select name="permissions[]">
-                            <option value="">Seleccione el permiso</option>
-                            <option value="usuarios">Usuarios</option>
-                            <option value="inventarios">Inventarios</option>
-                          </select>
+                          <label for="">Descripcion:</label>
+                          <br>
+                          <textarea name="descripcion" rows="8" cols="49"></textarea>
                         </div>
-                        <input class="btn btn-green submit" type="submit" name="update" value="Actualizar" />
+                        </label>
+                        <input class="btn btn-green submit" type="submit" value="Actualizar" />
                       </form>
                     </div>
                   </div>
                 </div>
           <?php
               }
-            } else {
-              echo '<script type="text/javascript">
-                alert("No se encontraron roles registrados");
-                </script>';
             }
-          } else {
-            echo '<script type="text/javascript">
-              alert("Error al consultar la lista de roles");
-              </script>';
           }
-
           ?>
         </table>
       </div>
     </div>
     <footer>Copyright 2022</footer>
   </div>
+
 </body>
 
-</html>
+</html

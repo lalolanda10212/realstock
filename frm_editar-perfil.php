@@ -34,7 +34,7 @@
           </a>
         </li>
         <li class="link">
-          <a href="inventarios.html">
+          <a href="inventarios.php">
             <i class="fa-solid fa-cart-flatbed"></i> Inventarios
           </a>
         </li>
@@ -68,11 +68,7 @@
         $user_id = $_SESSION['user_id'];
         $query = "SELECT email, nombres, apellidos FROM tbl_usuario WHERE usuario_id = '$user_id'";
         $result = mysqli_query($conn, $query);
-        // <<<EOD
-        // Ejemplo de una cadena
-        // expandida en varias líneas
-        // empleando la sintaxis heredoc.
-        // EOD;
+        
         if ($result) {
           foreach ($result as $row) {
             $email = $row['email'];

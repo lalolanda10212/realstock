@@ -1,3 +1,6 @@
+<?php
+require_once './php/session-data.php';
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -52,7 +55,7 @@
       </div>
       <div class="section-header">
         <div class="user-tag">
-          <a href="frm_editar-perfil.php"><i class="fa-solid fa-circle-user"></i>Usuario</a>
+          <a href="frm_editar-perfil.php"><i class="fa-solid fa-circle-user"></i><?php echo $_SESSION['username'] ?></a>
         </div>
         <div class="btn-logout">
           <a href="./php/logout.php"><i class="fa-solid fa-right-from-bracket"></i></a>
@@ -92,7 +95,7 @@
           </a>
         </div>
         <div class="card">
-          <a href="frm_crear-categorias.html">
+          <a href="frm_crear-categorias.php">
             <div class="card-content">
               <div class="icono">
                 <img src="img/categorizacion.svg" alt="" />

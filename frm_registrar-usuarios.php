@@ -34,7 +34,7 @@
           </a>
         </li>
         <li class="link">
-          <a href="inventarios.html">
+          <a href="inventarios.php">
             <i class="fa-solid fa-cart-flatbed"></i> Inventarios
           </a>
         </li>
@@ -138,7 +138,7 @@
           $query = "SELECT * FROM tbl_usuario";
           $result = mysqli_query($conn, $query);
 
-          if ($result == true) {
+          if ($result) {
             if (mysqli_num_rows($result) > 0) {
               foreach ($result as $row) {
           ?>
