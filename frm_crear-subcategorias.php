@@ -139,7 +139,9 @@
             <td class="cell-center">Editar</td>
           </tr>
           <?php
-          $query = "SELECT * FROM tbl_subcategoria";
+          $query = "SELECT tbl_categoria.nombre AS catnombre, tbl_subcategoria.subcategoria_id, tbl_subcategoria.nombre, tbl_subcategoria.descripcion
+          FROM tbl_subcategoria
+          INNER JOIN tbl_categoria ON tbl_subcategoria.subcategoria_id = tbl_categoria.categoria_id;";
           $result = mysqli_query($conn, $query);
 
           if ($result) {
@@ -148,7 +150,7 @@
           ?>
                 <tr>
                   <td class="cell-center"><?php echo $row['subcategoria_id'] ?></td>
-                  <td><?php echo $row['tbl_categoria_id'] ?></td>
+                  <td><?php echo $row['catnombre'] ?></td>
                   <td><?php echo $row['nombre'] ?></td>
                   <td><?php echo $row['descripcion'] ?></td>
                   <td class="cell-center">
@@ -181,7 +183,7 @@
                       <i class="fa-solid fa-xmark" data-btn-close="modal"></i>
                     </div>
                     <div class="modal-content">
-                      <form action="#">
+                      <form action="./php/update-subcategory.php?subcategory_id=<?php echo $row['subcategoria_id'] ?>">
                         <div class="form-section">
                           <label for="">Categoria:</label>
                           <input type="text" placeholder="Ingrese el nombre de la categoria..." />

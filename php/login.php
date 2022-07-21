@@ -27,7 +27,7 @@ if (isset($_POST['login'])) {
         }
     } else {
         echo '<script type="text/javascript">
-		alert("No se encontro registrado al usuario: '. $user .'");
+		alert("No se encontró registrado al usuario: '. $user .'");
 		window.location.href = "../index.html";
 		</script>';
     }
