@@ -179,26 +179,60 @@
                 <div class="modal-wrapper" id="m-editar-rol_<?php echo $row['subcategoria_id'] ?>">
                   <div class="modal">
                     <div class="modal-header">
-                      <div>Editar categoria</div>
+                      <div>Editar subcategoría</div>
                       <i class="fa-solid fa-xmark" data-btn-close="modal"></i>
                     </div>
                     <div class="modal-content">
-                      <form action="./php/update-subcategory.php?subcategory_id=<?php echo $row['subcategoria_id'] ?>">
+                      <form action="./php/update-subcategory.php?subcategory_id=<?php echo $row['subcategoria_id'] ?>" method="post">
                         <div class="form-section">
-                          <label for="">Categoria:</label>
-                          <input type="text" placeholder="Ingrese el nombre de la categoria..." />
+                          <label for="">Categoría:</label>
+                          <?php
+                          $query_cat = "SELECT categoria_id, nombre FROM tbl_categoria";
+                          $result_cat = mysqli_query($conn, $query_cat);
+
+                          if ($result_cat) {
+                            if (mysqli_num_rows($result_cat) > 0) {
+                          ?>
+                              <select required name="category">
+                                <option value="">Seleccione la categoría</option>
+                                <?php
+                                foreach ($result_cat as $row_cat) {
+                                  if ($row_cat['nombre'] == $row['catnombre']) {
+                                ?>
+                                    <option selected value="<?php echo $row_cat['categoria_id'] ?>"><?php echo $row_cat['nombre'] ?></option>
+                                  <?php
+                                  } else {
+                                  ?>
+                                    <option value="<?php echo $row_cat['categoria_id'] ?>"><?php echo $row_cat['nombre'] ?></option>
+                                <?php
+                                  }
+                                }
+                                ?>
+                              </select>
+                            <?php
+                            } else {
+                            ?>
+                              <input type="text" disabled value="No se encontraron categorías registradas">
+                          <?php
+                            }
+                          } else {
+                            echo '<script type="text/javascript">
+                            alert("Error al consultar las categorías");
+                            </script>';
+                          }
+                          ?>
                         </div>
                         <div class="form-section">
                           <label for="">Nombre:</label>
-                          <input type="text" placeholder="Ingrese el nombre de la categoria..." />
+                          <input type="text" name="subcategory" required value="<?php echo $row['nombre'] ?>" placeholder="Ingrese el nombre de la subcategoría..." />
                         </div>
                         <div class="form-section">
                           <label for="">Descripción:</label>
                           <br>
-                          <textarea name="descripcion" rows="8" cols="49"></textarea>
+                          <textarea name="description" required rows="8" cols="49"><?php echo $row['descripcion'] ?></textarea>
                         </div>
                         </label>
-                        <input class="btn btn-green submit" type="submit" value="Actualizar" />
+                        <input class="btn btn-green submit" type="submit" name="update" value="Actualizar" />
                       </form>
                     </div>
                   </div>
