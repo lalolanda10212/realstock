@@ -166,7 +166,15 @@
                 </div>
           <?php
               }
+            } else {
+              echo '<script type="text/javascript">
+              alert("No se encontraron categorías registradas");
+              </script>';
             }
+          } else {
+            echo '<script type="text/javascript">
+            alert("Error al consultar las subcategorías");
+            </script>';
           }
           ?>
         </table>

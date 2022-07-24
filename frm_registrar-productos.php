@@ -220,67 +220,134 @@ require_once './php/session-data.php';
                       <i class="fa-solid fa-xmark" data-btn-close="modal"></i>
                     </div>
                     <div class="modal-content">
-                      <form action="#">
+                      <form action="./php/update-product.php?product_id=<?php echo $row['producto_id'] ?>" method="post">
                         <div class="form-section">
-                          <label for="">Categoria:</label>
-                          <select>
-                            <option value="Impresora">Impresora</option>
-                            <option value="Computadores">Computadores</option>
-                            <option value="Insumos">Insumos</option>
-                          </select>
+                          <label for="">Subcategoría:</label>
+                          <?php
+                          $query_subcat = "SELECT subcategoria_id, nombre FROM tbl_subcategoria";
+                          $result_subcat = mysqli_query($conn, $query_subcat);
+
+                          if ($result_subcat) {
+                            if (mysqli_num_rows($result_subcat) > 0) {
+                          ?>
+                              <select required name="subcategory">
+                                <option value="">Seleccione la subcategoría</option>
+                                <?php
+                                foreach ($result_subcat as $row_subcat) {
+                                  if ($row_subcat['nombre'] == $row['subcatnombre']) {
+                                ?>
+                                    <option selected value="<?php echo $row_subcat['subcategoria_id'] ?>"><?php echo $row_subcat['nombre'] ?></option>
+                                  <?php
+                                  } else {
+                                  ?>
+                                    <option value="<?php echo $row_subcat['subcategoria_id'] ?>"><?php echo $row_subcat['nombre'] ?></option>
+                                <?php
+                                  }
+                                }
+                                ?>
+                              </select>
+                            <?php
+                            } else {
+                            ?>
+                              <input type="text" disabled value="No se encontraron subcategorías registradas">
+                          <?php
+                            }
+                          } else {
+                            echo '<script type="text/javascript">
+                            alert("Error al consultar las subcategorías");
+                            </script>';
+                          }
+                          ?>
                         </div>
                         <div class="form-section">
-                          <label for="">Subcategoria:</label>
-                          <select>
-                            <option value="">Seleccione el tipo de movimiento</option>
-                            <option value="Multifuncional">Multifuncional</option>
-                            <option value="Portatil">Portatil</option>
-                            <option value="Toner">Toner</option>
-                          </select>
+                          <label for="">No de serie:</label>
+                          <input required type="number" name="serial" min="1" value="<?php echo $row['no_serie'] ?>" placeholder="Ingrese el no de serie" />
                         </div>
                         <div class="form-section">
-                          <label for="">Producto:</label>
-                          <input type="text" placeholder="Ingrese un Producto" />
+                          <label for="">Contador inicial:</label>
+                          <input required type="text" name="initial_counter" value="<?php echo $row['contador_inicial'] ?>" placeholder="Ingrese el contador inicial" />
                         </div>
                         <div class="form-section">
-                          <label for="">Marca:</label>
-                          <input type="text" placeholder="Ingrese una Marca" />
+                          <label for="">Anotación:</label>
+                          <input required type="text" name="annotation" value="<?php echo $row['anotacion'] ?>" placeholder="Ingrese la anotación" />
                         </div>
                         <div class="form-section">
-                          <label for="">Modelo:</label>
-                          <input type="text" placeholder="Ingrese el Modelo" />
+                          <label for="">Stock máximo:</label>
+                          <input required type="number" min="1" name="max_stock" value="<?php echo $row['stock_maximo'] ?>" placeholder="Ingrese el stock máximo" />
                         </div>
                         <div class="form-section">
-                          <label for="">No serie:</label>
-                          <input type="text" placeholder="Ingrese serial" />
-                        </div>
-                        <div class="form-section">
-                          <label for="">Stock maximo:</label>
-                          <input type="number" placeholder="Ingrese un Stock" />
-                        </div>
-                        <div class="form-section">
-                          <label for="">Stock minimo:</label>
-                          <input type="number" placeholder="Seleccione un stock min" />
-                        </div>
-                        <div class="form-section">
-                          <label for="">Contador:</label>
-                          <input type="number" placeholder="Ingrese Contador maquina" />
-                        </div>
-                        <div class="form-section">
-                          <label for="">Anotacion:</label>
-                          <input type="text" placeholder="Ingrese una notacion" />
+                          <label for="">Stock mínimo:</label>
+                          <input required type="number" min="1" name="min_stock" value="<?php echo $row['stock_minimo'] ?>" placeholder="Ingrese el stock mínimo" />
                         </div>
                         <div class="form-section">
                           <label for="">Estado:</label>
-                          <select>
-                            <option value="">Selecione un Estado</option>
-                            <option value="Rentado">Rentado</option>
-                            <option value="Asignado">Asignado</option>
-                            <option value="Libre">Libre</option>
-                            <option value="Dado de Baja">Dado de Baja</option>
-                          </select>
+                          <?php
+                          switch ($row['estado']) {
+                            case 'Rentado':
+                          ?>
+                              <select required name="status">
+                                <option value="">Selecione un estado</option>
+                                <option selected value="Rentado">Rentado</option>
+                                <option value="Asignado">Asignado</option>
+                                <option value="Libre">Libre</option>
+                                <option value="Dado de Baja">Dado de Baja</option>
+                              </select>
+                            <?php
+                              break;
+                            case 'Asignado':
+                            ?>
+                              <select required name="status">
+                                <option value="">Selecione un estado</option>
+                                <option value="Rentado">Rentado</option>
+                                <option selected value="Asignado">Asignado</option>
+                                <option value="Libre">Libre</option>
+                                <option value="Dado de Baja">Dado de Baja</option>
+                              </select>
+                            <?php
+                              break;
+                            case 'Libre':
+                            ?>
+                              <select required name="status">
+                                <option value="">Selecione un estado</option>
+                                <option value="Rentado">Rentado</option>
+                                <option value="Asignado">Asignado</option>
+                                <option selected value="Libre">Libre</option>
+                                <option value="Dado de Baja">Dado de Baja</option>
+                              </select>
+                            <?php
+                              break;
+                            case 'Dado de Baja':
+                            ?>
+                              <select required name="status">
+                                <option value="">Selecione un estado</option>
+                                <option value="Rentado">Rentado</option>
+                                <option value="Asignado">Asignado</option>
+                                <option value="Libre">Libre</option>
+                                <option selected value="Dado de Baja">Dado de Baja</option>
+                              </select>
+                            <?php
+                              break;
+                            default:
+                            ?>
+                              <input disabled type="text" value="Error inesperado">
+                          <?php
+                              break;
+                          }
+                          ?>
                         </div>
-                        <input class="btn btn-green submit" type="submit" value="Actualizar" />
+                        <div class="form-section">
+                          <label for="">Marca del fabricante:</label>
+                          <input required type="text" name="brand" value="<?php echo $row['marca_fabricante'] ?>" placeholder="Ingrese la marca del fabricante" />
+                        </div>
+                        <div class="form-section">
+                          <label for="">Modelo:</label>
+                          <input required type="text" name="model" value="<?php echo $row['modelo'] ?>" placeholder="Ingrese el modelo" />
+                        </div>
+                        <div class="form-section">
+                          <label for="">Descripción:</label>
+                          <textarea name="description" cols="49" rows="10"><?php echo $row['descripcion'] ?></textarea>
+                        </div>
+                        <input class="btn btn-green submit" type="submit" name="update" value="Actualizar" />
                       </form>
                     </div>
                   </div>
