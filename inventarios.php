@@ -85,7 +85,7 @@ require_once './php/session-data.php';
           </a>
         </div>
         <div class="card">
-          <a href="frm_registrar-productos.html">
+          <a href="frm_registrar-productos.php">
             <div class="card-content">
               <div class="icono">
                 <img src="img/producto.svg" alt="" />

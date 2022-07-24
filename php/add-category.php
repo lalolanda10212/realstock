@@ -1,7 +1,8 @@
-<?php 
-require './config.php';
-
+<?php
 if (isset($_POST['save'])) {
+
+    require './config.php';
+
     $category = $_POST['category'];
     $description = $_POST['description'];
 
@@ -9,9 +10,9 @@ if (isset($_POST['save'])) {
     $stmt->bind_param('ss', $category, $description);
 
     $stmt->execute();
-    if (($stmt) && ($stmt -> affected_rows == 1)) {
+    if (($stmt) && ($stmt->affected_rows == 1)) {
         echo '<script type="text/javascript">
-        alert("Se creó la categoría: '. $category .' correctamente");
+        alert("Se creó la categoría: ' . $category . ' correctamente");
         window.location.href = "../frm_crear-categorias.php";
         </script>';
     } else {

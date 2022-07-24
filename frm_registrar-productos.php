@@ -1,3 +1,6 @@
+<?php
+require_once './php/session-data.php';
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -23,17 +26,17 @@
     <div class="links">
       <ul>
         <li class="link">
-          <a href="principal.html">
+          <a href="principal.php">
             <i class="fa-solid fa-house-chimney"></i> Inicio
           </a>
         </li>
         <li class="link">
-          <a href="frm_registrar-usuarios.html">
+          <a href="frm_registrar-usuarios.php">
             <i class="fa-solid fa-user-group"></i> Usuarios
           </a>
         </li>
         <li class="link">
-          <a href="inventarios.html">
+          <a href="inventarios.php">
             <i class="fa-solid fa-cart-flatbed"></i> Inventarios
           </a>
         </li>
@@ -47,16 +50,16 @@
           <span></span><span></span><span></span>
         </div>
         <div class="location-source">
-          <a href="principal.html" title="Inicio"><i class="fa-solid fa-house-chimney"></i> Inicio </a> / Inventarios /
+          <a href="principal.php" title="Inicio"><i class="fa-solid fa-house-chimney"></i> Inicio </a> / Inventarios /
           Productos
         </div>
       </div>
       <div class="section-header">
         <div class="user-tag">
-          <a href="frm_editar-perfil.html"><i class="fa-solid fa-circle-user"></i>Usuario</a>
+          <a href="frm_editar-perfil.php"><i class="fa-solid fa-circle-user"></i><?php echo $_SESSION['username'] ?></a>
         </div>
         <div class="btn-logout">
-          <a href="index.html"><i class="fa-solid fa-right-from-bracket"></i></a>
+          <a href="index.php"><i class="fa-solid fa-right-from-bracket"></i></a>
         </div>
       </div>
     </header>
@@ -76,68 +79,83 @@
               <i class="fa-solid fa-xmark" data-btn-close="modal"></i>
             </div>
             <div class="modal-content">
-              <form action="#">
+              <form action="./php/add-product.php" method="post">
                 <div class="form-section">
-                  <label for="">Categoria:</label>
-                  <select>
-                    <option value="">Seleccione el tipo de Categoria</option>
-                    <option value="Impresoras">Impresora</option>
-                    <option value="Computadores">Computadores</option>
-                    <option value="Insumos">Insumos</option>
-                  </select>
+                  <label for="">Subcategoría:</label>
+                  <?php
+                  include_once './php/config.php';
+                  $query_subcat = "SELECT subcategoria_id, nombre FROM tbl_subcategoria";
+                  $result_subcat = mysqli_query($conn, $query_subcat);
+
+                  if ($result_subcat) {
+                    if (mysqli_num_rows($result_subcat) > 0) {
+                  ?>
+                      <select required name="subcategory">
+                        <option value="">Seleccione la subcategoría</option>
+                        <?php
+                        foreach ($result_subcat as $row_subcat) {
+                        ?>
+                          <option value="<?php echo $row_subcat['subcategoria_id'] ?>"><?php echo $row_subcat['nombre'] ?></option>
+                        <?php
+                        }
+                        ?>
+                      </select>
+                    <?php
+                    } else {
+                    ?>
+                      <input type="text" disabled value="No se encontraron categorías registradas">
+                  <?php
+                    }
+                  } else {
+                    echo '<script type="text/javascript">
+                    alert("Error al consultar las categorías");
+                    </script>';
+                  }
+                  ?>
                 </div>
                 <div class="form-section">
-                  <label for="">Subcategoria:</label>
-                  <select>
-                    <option value="">Seleccione el tipo de subcategoria</option>
-                    <option value="Multifuncional">Multifuncional</option>
-                    <option value="Portatil">Portatil</option>
-                    <option value="Toner">Toner</option>
-                  </select>
-                </div>
-                <div class="form-section">
-                  <label for="">Producto:</label>
-                  <input type="text" placeholder="Seleccione el Producto" />
-                </div>
-                <div class="form-section">
-                  <label for="">Marca:</label>
-                  <input type="text" placeholder="Seleccione la Marca" />
-                </div>
-                <div class="form-section">
-                  <label for="">Modelo:</label>
-                  <input type="number" placeholder="Ingrese el Modelo" />
-                </div>
-                <div class="form-section">
-                  <label for="">No serie:</label>
-                  <input type="number" placeholder="Ingrese el serial" />
-                </div>
-                <div class="form-section">
-                  <label for="">Stock min:</label>
-                  <input type="text" placeholder="Ingrese el stock minimo" />
-                </div>
-                <div class="form-section">
-                  <label for="">Stock maximo:</label>
-                  <input type="select" placeholder="Ingrese el stock maximo" />
+                  <label for="">No de serie:</label>
+                  <input required type="number" name="serial" min="1" placeholder="Ingrese el no de serie" />
                 </div>
                 <div class="form-section">
                   <label for="">Contador inicial:</label>
-                  <input type="text" placeholder="Ingrese el contador inicial" />
+                  <input required type="text" name="initial_counter" placeholder="Ingrese el contador inicial" />
                 </div>
                 <div class="form-section">
-                  <label for="">Anotacion:</label>
-                  <input type="text" placeholder="Ingrese una Anotacion" />
+                  <label for="">Anotación:</label>
+                  <input required type="text" name="annotation" placeholder="Ingrese la anotación" />
+                </div>
+                <div class="form-section">
+                  <label for="">Stock máximo:</label>
+                  <input required type="number" min="1" name="max_stock" placeholder="Ingrese el stock máximo" />
+                </div>
+                <div class="form-section">
+                  <label for="">Stock mínimo:</label>
+                  <input required type="number" min="1" name="min_stock" placeholder="Ingrese el stock mínimo" />
                 </div>
                 <div class="form-section">
                   <label for="">Estado:</label>
-                  <select>
-                    <option value="">Selecione un Estado</option>
+                  <select required name="status">
+                    <option value="">Selecione un estado</option>
                     <option value="Rentado">Rentado</option>
                     <option value="Asignado">Asignado</option>
                     <option value="Libre">Libre</option>
                     <option value="Dado de Baja">Dado de Baja</option>
                   </select>
                 </div>
-                <input class="btn btn-green" type="submit" value="Guardar" />
+                <div class="form-section">
+                  <label for="">Marca del fabricante:</label>
+                  <input required type="text" name="brand" placeholder="Ingrese la marca del fabricante" />
+                </div>
+                <div class="form-section">
+                  <label for="">Modelo:</label>
+                  <input required type="text" name="model" placeholder="Ingrese el modelo" />
+                </div>
+                <div class="form-section">
+                  <label for="">Descripción:</label>
+                  <textarea name="description" cols="49" rows="10"></textarea>
+                </div>
+                <input class="btn btn-green" type="submit" name="save" value="Guardar" />
               </form>
             </div>
           </div>
@@ -146,23 +164,33 @@
       <div class="wrapper-table">
         <table>
           <tr>
-            <th colspan="13">Productos</th>
+            <th colspan="15">Productos</th>
           </tr>
           <tr class="titles-table">
             <td class="cell-center">Id</td>
-            <td>Categoria</td>
-            <td>Subcategoria</td>
-            <td>Producto</td>
+            <td>Subcategoría</td>
+            <td>No serie</td>
+            <td>Contador inicial</td>
+            <td>Anotación</td>
+            <td>Stock máximo</td>
+            <td>Stock mínimo</td>
+            <td>Estado</td>
             <td>Marca</td>
             <td>Modelo</td>
-            <td>No Serie</td>
-            <td>Stock max</td>
-            <td>Stock min</td>
-            <td>Contador</td>
-            <td>Anotación</td>
-            <td class="cell-center">Estado</td>
+            <td>Descripción</td>
             <td class="cell-center">Editar</td>
           </tr>
+          <?php
+          $query = "SELECT * FROM tbl_producto";
+          $result = mysqli_query($conn, $query);
+
+          if ($result) {
+            if (mysqli_num_rows($result) > 0) {
+              foreach ($result as $row) {
+              }
+            }
+          }
+          ?>
           <tr>
             <td class="cell-center">1</td>
             <td>Computadores</td>
@@ -177,52 +205,9 @@
             <td>Buenas condiciones</td>
             <td class="cell-center"><img src="img/aceptar.png" alt="" /></td>
             <td class="cell-center">
-              <div title="Editar" title="Editar" data-btn-modal="true" data-modal="#m-editar-usuario"><img
-                  src="img/editar.png" alt="Editar" /></div>
-            </td>
-            <td class="cell-center">
-            </td>
-          <tr>
-            <td class="cell-center">1</td>
-            <td>Impresora</td>
-            <td>Multifuncional</td>
-            <td>Impresion</td>
-            <td>Ricoh</td>
-            <td>MP 5001</td>
-            <td>CNDSA345</td>
-            <td>100</td>
-            <td>1</td>
-            <td>15000</td>
-            <td>Buenas condiciones</td>
-            <td class="cell-center"><img src="img/aceptar.png" alt="" /></td>
-            <td class="cell-center">
-              <div title="Editar" title="Editar" data-btn-modal="true" data-modal="#m-editar-usuario"><img
-                  src="img/editar.png" alt="Editar" /></div>
-            </td>
-            <td class="cell-center">
-            </td>
-          <tr>
-            <td class="cell-center">1</td>
-            <td>Insumos</td>
-            <td>Toner</td>
-            <td>Consumible</td>
-            <td>Image</td>
-            <td>Ricoh MP 5002</td>
-            <td>N/A</td>
-            <td>100</td>
-            <td>1</td>
-            <td>N/A</td>
-            <td>Buenas condiciones</td>
-            <td class="cell-center"><img src="img/aceptar.png" alt="" /></td>
-            <td class="cell-center">
-              <div title="Editar" title="Editar" data-btn-modal="true" data-modal="#m-editar-usuario"><img
-                  src="img/editar.png" alt="Editar" /></div>
-            </td>
-            <td class="cell-center">
+              <div title="Editar" title="Editar" data-btn-modal="true" data-modal="#m-editar-usuario"><img src="img/editar.png" alt="Editar" /></div>
             </td>
           </tr>
-          <tr>
-
         </table>
       </div>
     </div>
