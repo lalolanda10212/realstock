@@ -141,7 +141,7 @@
           <?php
           $query = "SELECT tbl_categoria.nombre AS catnombre, tbl_subcategoria.subcategoria_id, tbl_subcategoria.nombre, tbl_subcategoria.descripcion
           FROM tbl_subcategoria
-          INNER JOIN tbl_categoria ON tbl_subcategoria.subcategoria_id = tbl_categoria.categoria_id;";
+          INNER JOIN tbl_categoria ON tbl_categoria.categoria_id;";
           $result = mysqli_query($conn, $query);
 
           if ($result) {
@@ -170,7 +170,7 @@
                     <div class="modal-content">
                       <h2>¿Está seguro de eliminar “<?php echo $row['nombre'] ?>"?</h2>
                       <div class="options-delete">
-                        <a href="./php/delete-subcategory.php?php echo $row['subcategoria_id'] ?>" class="btn btn-red">Eliminar</a>
+                        <a href="./php/delete-subcategory.php?subcategory_id=<?php echo $row['subcategoria_id'] ?>" class="btn btn-red">Eliminar</a>
                         <button class="btn btn-gray" data-btn-cancel="modal">Cancelar</button>
                       </div>
                     </div>
@@ -183,7 +183,7 @@
                       <i class="fa-solid fa-xmark" data-btn-close="modal"></i>
                     </div>
                     <div class="modal-content">
-                      <form action="./php/update-subcategory.php?subcategory_id=<?php echo $row['subcategoria_id'] ?>" method="post">
+                      <form action="./php/update-subcategory.php?subcategory_id=<?php echo $row['subcategoria_id'] ?>" method="post" autocomplete="off">
                         <div class="form-section">
                           <label for="">Categoría:</label>
                           <?php

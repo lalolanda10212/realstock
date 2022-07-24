@@ -1,23 +1,23 @@
 <?php
 
-if (isset($_GET['category_id'])) {
+if (isset($_GET['subcategory_id'])) {
     require './config.php';
 
-    $category_id = $_GET['category_id'];
+    $subcategory_id = $_GET['subcategory_id'];
 
-    $stmt = $conn->prepare("DELETE FROM tbl_categoria WHERE categoria_id = ?");
-    $stmt->bind_param("i", $category_id);
+    $stmt = $conn->prepare("DELETE FROM tbl_subcategoria WHERE subcategoria_id = ?");
+    $stmt->bind_param("i", $subcategory_id);
 
     $stmt->execute();
     if (($stmt) && ($stmt->affected_rows == 1)) {
         echo '<script type="text/javascript">
         alert("Se eliminó la categoria");
-        window.location.href = "../frm_crear-categorias.php";
+        window.location.href = "../frm_crear-subcategorias.php";
         </script>';
     } else {
         echo '<script type="text/javascript">
         alert("Error al eliminar la categoria");
-        window.location.href = "../frm_crear-categorias.php";
+        window.location.href = "../frm_crear-subcategorias.php";
         </script>';
     }
     $stmt->close();
