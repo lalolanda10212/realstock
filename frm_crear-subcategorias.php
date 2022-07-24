@@ -141,7 +141,8 @@
           <?php
           $query = "SELECT tbl_categoria.nombre AS catnombre, tbl_subcategoria.subcategoria_id, tbl_subcategoria.nombre, tbl_subcategoria.descripcion
           FROM tbl_subcategoria
-          INNER JOIN tbl_categoria ON tbl_categoria.categoria_id;";
+          INNER JOIN tbl_categoria ON tbl_categoria.categoria_id = tbl_subcategoria.tbl_categoria_id";
+
           $result = mysqli_query($conn, $query);
 
           if ($result) {

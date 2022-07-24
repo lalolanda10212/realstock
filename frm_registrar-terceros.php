@@ -18,22 +18,22 @@
 <body>
   <nav>
     <div class="logo">
-      <a href="principal.html"><img src="img/logo.png" alt="" /></a>
+      <a href="principal.php"><img src="img/logo.png" alt="" /></a>
     </div>
     <div class="links">
       <ul>
         <li class="link">
-          <a href="principal.html">
+          <a href="principal.php">
             <i class="fa-solid fa-house-chimney"></i> Inicio
           </a>
         </li>
         <li class="link">
-          <a href="frm_registrar-usuarios.html">
+          <a href="frm_registrar-usuarios.php">
             <i class="fa-solid fa-user-group"></i> Usuarios
           </a>
         </li>
         <li class="link">
-          <a href="inventarios.html">
+          <a href="inventarios.php">
             <i class="fa-solid fa-cart-flatbed"></i> Inventarios
           </a>
         </li>
@@ -47,16 +47,16 @@
           <span></span><span></span><span></span>
         </div>
         <div class="location-source">
-          <a href="principal.html"><i class="fa-solid fa-house-chimney"></i> Inicio /</a> Inventarios /
+          <a href="principal.php"><i class="fa-solid fa-house-chimney"></i> Inicio /</a> Inventarios /
           Terceros
         </div>
       </div>
       <div class="section-header">
         <div class="user-tag">
-          <a href="frm_editar-perfil.html"><i class="fa-solid fa-circle-user"></i>Usuario</a>
+          <a href="frm_editar-perfil.php"><i class="fa-solid fa-circle-user"></i>Usuario</a>
         </div>
         <div class="btn-logout">
-          <a href="index.html"><i class="fa-solid fa-right-from-bracket"></i></a>
+          <a href="./php/logout.php"><i class="fa-solid fa-right-from-bracket"></i></a>
         </div>
       </div>
     </header>

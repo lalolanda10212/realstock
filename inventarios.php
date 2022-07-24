@@ -75,7 +75,7 @@ require_once './php/session-data.php';
           </a>
         </div>
         <div class="card">
-          <a href="frm_registrar-terceros.html">
+          <a href="frm_registrar-terceros.php">
             <div class="card-content">
               <div class="icono">
                 <img src="img/relacion-de-usuarios.svg" alt="" />

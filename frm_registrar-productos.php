@@ -59,7 +59,7 @@ require_once './php/session-data.php';
           <a href="frm_editar-perfil.php"><i class="fa-solid fa-circle-user"></i><?php echo $_SESSION['username'] ?></a>
         </div>
         <div class="btn-logout">
-          <a href="index.php"><i class="fa-solid fa-right-from-bracket"></i></a>
+          <a href="./php/logout.php"><i class="fa-solid fa-right-from-bracket"></i></a>
         </div>
       </div>
     </header>
@@ -168,6 +168,7 @@ require_once './php/session-data.php';
           </tr>
           <tr class="titles-table">
             <td class="cell-center">Id</td>
+            <td>Categoría</td>
             <td>Subcategoría</td>
             <td>No serie</td>
             <td>Contador inicial</td>
@@ -181,109 +182,118 @@ require_once './php/session-data.php';
             <td class="cell-center">Editar</td>
           </tr>
           <?php
-          $query = "SELECT * FROM tbl_producto";
+          $query = "SELECT tbl_categoria.nombre AS catnombre, tbl_subcategoria.nombre AS subcatnombre, tbl_producto.producto_id, tbl_producto.no_serie, tbl_producto.contador_inicial, tbl_producto.anotacion, tbl_producto.stock_maximo, tbl_producto.stock_minimo, tbl_producto.estado, tbl_producto.marca_fabricante, tbl_producto.modelo, tbl_producto.descripcion
+          FROM ((tbl_producto
+          INNER JOIN tbl_subcategoria
+          ON tbl_subcategoria.subcategoria_id = tbl_producto.tbl_subcategoria_id)
+          INNER JOIN tbl_categoria
+          ON tbl_categoria.categoria_id = tbl_subcategoria.tbl_categoria_id)";
+
           $result = mysqli_query($conn, $query);
 
           if ($result) {
             if (mysqli_num_rows($result) > 0) {
               foreach ($result as $row) {
+          ?>
+                <tr>
+                  <td class="cell-center"><?php echo $row['producto_id'] ?></td>
+                  <td><?php echo $row['catnombre'] ?></td>
+                  <td><?php echo $row['subcatnombre'] ?></td>
+                  <td><?php echo $row['no_serie'] ?></td>
+                  <td><?php echo $row['contador_inicial'] ?></td>
+                  <td><?php echo $row['anotacion'] ?></td>
+                  <td><?php echo $row['stock_maximo'] ?></td>
+                  <td><?php echo $row['stock_minimo'] ?></td>
+                  <td><?php echo $row['estado'] ?></td>
+                  <td><?php echo $row['marca_fabricante'] ?></td>
+                  <td><?php echo $row['modelo'] ?></td>
+                  <td><?php echo $row['descripcion'] ?></td>
+                  <td class="cell-center">
+                    <div title="Editar" title="Editar" data-btn-modal="true" data-modal="#m-editar-usuario_<?php echo $row['producto_id'] ?>"><img src="img/editar.png" alt="Editar" /></div>
+                  </td>
+                </tr>
+
+                <div class="modal-wrapper" id="m-editar-usuario_<?php echo $row['producto_id'] ?>">
+                  <div class="modal">
+                    <div class="modal-header">
+                      <div>Editar información de Producto "<?php echo $row['producto_id'] ?>"</div>
+                      <i class="fa-solid fa-xmark" data-btn-close="modal"></i>
+                    </div>
+                    <div class="modal-content">
+                      <form action="#">
+                        <div class="form-section">
+                          <label for="">Categoria:</label>
+                          <select>
+                            <option value="Impresora">Impresora</option>
+                            <option value="Computadores">Computadores</option>
+                            <option value="Insumos">Insumos</option>
+                          </select>
+                        </div>
+                        <div class="form-section">
+                          <label for="">Subcategoria:</label>
+                          <select>
+                            <option value="">Seleccione el tipo de movimiento</option>
+                            <option value="Multifuncional">Multifuncional</option>
+                            <option value="Portatil">Portatil</option>
+                            <option value="Toner">Toner</option>
+                          </select>
+                        </div>
+                        <div class="form-section">
+                          <label for="">Producto:</label>
+                          <input type="text" placeholder="Ingrese un Producto" />
+                        </div>
+                        <div class="form-section">
+                          <label for="">Marca:</label>
+                          <input type="text" placeholder="Ingrese una Marca" />
+                        </div>
+                        <div class="form-section">
+                          <label for="">Modelo:</label>
+                          <input type="text" placeholder="Ingrese el Modelo" />
+                        </div>
+                        <div class="form-section">
+                          <label for="">No serie:</label>
+                          <input type="text" placeholder="Ingrese serial" />
+                        </div>
+                        <div class="form-section">
+                          <label for="">Stock maximo:</label>
+                          <input type="number" placeholder="Ingrese un Stock" />
+                        </div>
+                        <div class="form-section">
+                          <label for="">Stock minimo:</label>
+                          <input type="number" placeholder="Seleccione un stock min" />
+                        </div>
+                        <div class="form-section">
+                          <label for="">Contador:</label>
+                          <input type="number" placeholder="Ingrese Contador maquina" />
+                        </div>
+                        <div class="form-section">
+                          <label for="">Anotacion:</label>
+                          <input type="text" placeholder="Ingrese una notacion" />
+                        </div>
+                        <div class="form-section">
+                          <label for="">Estado:</label>
+                          <select>
+                            <option value="">Selecione un Estado</option>
+                            <option value="Rentado">Rentado</option>
+                            <option value="Asignado">Asignado</option>
+                            <option value="Libre">Libre</option>
+                            <option value="Dado de Baja">Dado de Baja</option>
+                          </select>
+                        </div>
+                        <input class="btn btn-green submit" type="submit" value="Actualizar" />
+                      </form>
+                    </div>
+                  </div>
+                </div>
+          <?php
               }
             }
           }
           ?>
-          <tr>
-            <td class="cell-center">1</td>
-            <td>Computadores</td>
-            <td>Portatil</td>
-            <td>Laptop</td>
-            <td>Dell</td>
-            <td>Latitude E7440</td>
-            <td>C5C5WZ1</td>
-            <td>100</td>
-            <td>1</td>
-            <td>N/A</td>
-            <td>Buenas condiciones</td>
-            <td class="cell-center"><img src="img/aceptar.png" alt="" /></td>
-            <td class="cell-center">
-              <div title="Editar" title="Editar" data-btn-modal="true" data-modal="#m-editar-usuario"><img src="img/editar.png" alt="Editar" /></div>
-            </td>
-          </tr>
         </table>
       </div>
     </div>
     <footer>Copyright 2022</footer>
-  </div>
-  <div class="modal-wrapper" id="m-editar-usuario">
-    <div class="modal">
-      <div class="modal-header">
-        <div>Editar información de Producto</div>
-        <i class="fa-solid fa-xmark" data-btn-close="modal"></i>
-      </div>
-      <div class="modal-content">
-        <form action="#">
-          <div class="form-section">
-            <label for="">Categoria:</label>
-            <select>
-              <option value="Impresora">Impresora</option>
-              <option value="Computadores">Computadores</option>
-              <option value="Insumos">Insumos</option>
-            </select>
-          </div>
-          <div class="form-section">
-            <label for="">Subcategoria:</label>
-            <select>
-              <option value="">Seleccione el tipo de movimiento</option>
-              <option value="Multifuncional">Multifuncional</option>
-              <option value="Portatil">Portatil</option>
-              <option value="Toner">Toner</option>
-            </select>
-          </div>
-          <div class="form-section">
-            <label for="">Producto:</label>
-            <input type="text" placeholder="Ingrese un Producto" />
-          </div>
-          <div class="form-section">
-            <label for="">Marca:</label>
-            <input type="text" placeholder="Ingrese una Marca" />
-          </div>
-          <div class="form-section">
-            <label for="">Modelo:</label>
-            <input type="text" placeholder="Ingrese el Modelo" />
-          </div>
-          <div class="form-section">
-            <label for="">No serie:</label>
-            <input type="text" placeholder="Ingrese serial" />
-          </div>
-          <div class="form-section">
-            <label for="">Stock maximo:</label>
-            <input type="number" placeholder="Ingrese un Stock" />
-          </div>
-          <div class="form-section">
-            <label for="">Stock minimo:</label>
-            <input type="number" placeholder="Seleccione un stock min" />
-          </div>
-          <div class="form-section">
-            <label for="">Contador:</label>
-            <input type="number" placeholder="Ingrese Contador maquina" />
-          </div>
-          <div class="form-section">
-            <label for="">Anotacion:</label>
-            <input type="text" placeholder="Ingrese una notacion" />
-          </div>
-          <div class="form-section">
-            <label for="">Estado:</label>
-            <select>
-              <option value="">Selecione un Estado</option>
-              <option value="Rentado">Rentado</option>
-              <option value="Asignado">Asignado</option>
-              <option value="Libre">Libre</option>
-              <option value="Dado de Baja">Dado de Baja</option>
-            </select>
-          </div>
-          <input class="btn btn-green" type="submit" value="Actualizar" />
-        </form>
-      </div>
-    </div>
   </div>
 
 </body>
