@@ -1,3 +1,6 @@
+<?php
+require_once './php/session-data.php';
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -53,7 +56,7 @@
       </div>
       <div class="section-header">
         <div class="user-tag">
-          <a href="frm_editar-perfil.php"><i class="fa-solid fa-circle-user"></i>Usuario</a>
+          <a href="frm_editar-perfil.php"><i class="fa-solid fa-circle-user"></i><?php echo $_SESSION['username'] ?></a>
         </div>
         <div class="btn-logout">
           <a href="./php/logout.php"><i class="fa-solid fa-right-from-bracket"></i></a>
@@ -77,64 +80,59 @@
               <i class="fa-solid fa-xmark" data-btn-close="modal"></i>
             </div>
             <div class="modal-content">
-              <form action="#">
+              <form action="./php/add-third.php" method="post">
                 <div class="form-section">
                   <label for="">Tipo de documento:</label>
-                  <select name="tipo_documento">
-                    <option value="">Seleccione tipo de documento</option>
-                    <option value="Cedula">Cedula</option>
-                    <option value="Cedula de extrangeria">Cedula de extrangeria</option>
+                  <select name="document_type">
+                    <option value="">Seleccione el tipo de documento</option>
+                    <option value="CC">Cédula de ciudadanía</option>
+                    <option value="CE">Cédula de extranjería</option>
+                    <option value="NIT">Número de identificación tributaria</option>
+                    <option value="TI">Tarjeta de identidad</option>
+                    <option value="PAP">Pasaporte</option>
                   </select>
                 </div>
                 <div class="form-section">
                   <label for="">No. de documento:</label>
-                  <input type="text" placeholder="Ingrese el No. de documento">
+                  <input type="text" name="document" placeholder="Ingrese el No. de documento">
                 </div>
                 <div class="form-section">
                   <label for="">Razón social:</label>
-                  <input type="text" placeholder="Ingrese razón social">
-                </div>
-                <div class="form-section">
-                  <label for="">País:</label>
-                  <input type="text" placeholder="Ingrese país">
-                </div>
-                <div class="form-section">
-                  <label for="">Departamento:</label>
-                  <input type="text" placeholder="Ingrese departamento">
-                </div>
-                <div class="form-section">
-                  <label for="">Ciudad:</label>
-                  <input type="text" placeholder="Ingrese ciudad">
-                </div>
-                <div class="form-section">
-                  <label for="">Dirección:</label>
-                  <input type="text" placeholder="Ingrese dirección">
-                </div>
-                <div class="form-section">
-                  <label for="">Teléfono:</label>
-                  <input type="text" placeholder="Ingrese teléfono">
-                </div>
-                <div class="form-section">
-                  <label for="">Email:</label>
-                  <input type="text" placeholder="Ingrese email">
-                </div>
-                <div class="form-section">
-                  <label for="">Pagina web:</label>
-                  <input type="text" placeholder="Ingrese pagina web">
-                </div>
-                <div class="form-section">
-                  <label for="">Nombre de contacto:</label>
-                  <input type="text" placeholder="Ingrese nombre de contacto">
-                </div>
-                <div class="form-section">
-                  <label for="">Contacto:</label>
-                  <input type="text" placeholder="Ingrese contacto">
+                  <input type="text" name="business_name" placeholder="Ingrese la razón social">
                 </div>
                 <div class="form-section">
                   <label for="">Estado:</label>
-                  <input type="text" placeholder="Ingrese estado">
+                  <input type="text" name="status" placeholder="Ingrese el estado">
                 </div>
-                <input class="btn btn-green" type="submit" value="Guardar" />
+                <div class="form-section">
+                  <label for="">Nombre de contacto:</label>
+                  <input type="text" name="contact_name" placeholder="Ingrese el nombre de contacto">
+                </div>
+                <div class="form-section">
+                  <label for="">Teléfono:</label>
+                  <input type="text" name="phone" placeholder="Ingrese el teléfono">
+                </div>
+                <div class="form-section">
+                  <label for="">Página web:</label>
+                  <input type="text" name="web_page" placeholder="Ingrese la página web">
+                </div>
+                <div class="form-section">
+                  <label for="">Email:</label>
+                  <input type="text" name="email" placeholder="Ingrese el email">
+                </div>
+                <div class="form-section">
+                  <label for="">Departamento:</label>
+                  <input type="text" name="department" placeholder="Ingrese el departament">
+                </div>
+                <div class="form-section">
+                  <label for="">Ciudad:</label>
+                  <input type="text" name="city" placeholder="Ingrese la ciudad">
+                </div>
+                <div class="form-section">
+                  <label for="">Dirección:</label>
+                  <input type="text" name="address" placeholder="Ingrese la dirección">
+                </div>
+                <input class="btn btn-green" type="submit" name="save" value="Guardar" />
               </form>
             </div>
           </div>
@@ -150,16 +148,14 @@
             <td>Tipo de documento</td>
             <td>No. Documento</td>
             <td>Razón social</td>
-            <td>País</td>
+            <td>Estado</td>
+            <td>Nombre de contacto</td>
+            <td>Teléfono</td>
+            <td>Pagina web</td>
+            <td>Email</td>
             <td>Departamento</td>
             <td>Ciudad</td>
             <td>Dirección</td>
-            <td>Teléfono</td>
-            <td>Email</td>
-            <td>Pagina web</td>
-            <td>Contacto</td>
-            <td>Nombre de contacto</td>
-            <td>Estado</td>
             <td class="cell-center">Eliminar</td>
             <td class="cell-center">Editar</td>
           </tr>
@@ -183,8 +179,7 @@
               </div>
             </td>
             <td class="cell-center">
-              <div title="Editar" data-btn-modal="true" data-modal="#m-editar-rol"><img src="img/editar.png"
-                  alt="Editar" /></div>
+              <div title="Editar" data-btn-modal="true" data-modal="#m-editar-rol"><img src="img/editar.png" alt="Editar" /></div>
             </td>
           </tr>
         </table>
