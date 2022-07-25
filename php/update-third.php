@@ -1,6 +1,6 @@
 <?php
-if (isset($_POST['save'])) {
-    require './config.php';
+if (isset($_POST['update'], $_GET['third_id'])) {
+    require 'config.php';
 
     $document_type = $_POST['document_type'];
     $document = $_POST['document'];
@@ -14,18 +14,20 @@ if (isset($_POST['save'])) {
     $city = $_POST['city'];
     $address = $_POST['address'];
 
-    $stmt = $conn->prepare("INSERT INTO tbl_tercero (tipo_de_documento, no_documento, razon_social, estado, nombre_contacto, telefono, pagina_web, email, departamento, ciudad, direccion) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param('sssssssssss', $document_type, $document, $business_name, $status, $contact_name, $phone, $web_page, $email, $department, $city, $address);
+    $third_id = $_GET['third_id'];
+
+    $stmt = $conn->prepare("UPDATE tbl_tercero SET tipo_de_documento = ?, no_documento = ?, razon_social = ?, estado = ?, nombre_contacto = ?, telefono = ?, pagina_web = ?, email = ?, departamento = ?, ciudad = ?, direccion = ? WHERE tercero_id = ?");
+    $stmt->bind_param("ssssssssssss", $document_type, $document, $business_name, $status, $contact_name, $phone, $web_page, $email, $department, $city, $address, $third_id);
 
     $stmt->execute();
     if (($stmt) && ($stmt->affected_rows == 1)) {
         echo '<script type="text/javascript">
-        alert("Se creó al tercero: ' . $contact_name . ' correctamente");
+        alert("Se actualizó correctamente al tercero: ' . $contact_name . '");
         window.location.href = "../frm_registrar-terceros.php";
         </script>';
     } else {
         echo '<script type="text/javascript">
-        alert("Error al registrar al tercero");
+        alert("Error al actualizar al tercero");
         window.location.href = "../frm_registrar-terceros.php";
         </script>';
     }

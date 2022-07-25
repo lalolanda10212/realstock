@@ -11,12 +11,12 @@ if (isset($_GET['subcategory_id'])) {
     $stmt->execute();
     if (($stmt) && ($stmt->affected_rows == 1)) {
         echo '<script type="text/javascript">
-        alert("Se eliminó la categoria");
+        alert("Se eliminó la subcategoría");
         window.location.href = "../frm_crear-subcategorias.php";
         </script>';
     } else {
         echo '<script type="text/javascript">
-        alert("Error al eliminar la categoria");
+        alert("Error al eliminar la subcategoría");
         window.location.href = "../frm_crear-subcategorias.php";
         </script>';
     }
