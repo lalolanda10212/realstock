@@ -23,19 +23,19 @@ if (isset($_POST['login'])) {
             } else {
                 echo '<script type="text/javascript">
                 alert("El usuario se encuentra desactivado");
-                window.location.href = "../index.html";
+                window.location.href = "../index.php";
                 </script>';
             }
         } else {
             echo '<script type="text/javascript">
             alert("Usuario y/o contraseña erroneos");
-            window.location.href = "../index.html";
+            window.location.href = "../index.php";
             </script>';
         }
     } else {
         echo '<script type="text/javascript">
 		alert("No se encontró registrado al usuario: '. $user .'");
-		window.location.href = "../index.html";
+		window.location.href = "../index.php";
 		</script>';
     }
     $stmt->close();

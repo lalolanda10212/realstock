@@ -165,7 +165,7 @@
                 <div class="modal-wrapper" id="m-eliminar-rol_<?php echo $row['subcategoria_id'] ?>">
                   <div class="modal">
                     <div class="modal-header">
-                      <div>Eliminar categoria</div>
+                      <div>Eliminar subcategoría</div>
                       <i class="fa-solid fa-xmark" data-btn-close="modal"></i>
                     </div>
                     <div class="modal-content">
