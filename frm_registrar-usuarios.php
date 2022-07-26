@@ -180,11 +180,11 @@
                         </div>
                         <div class="form-section">
                           <label for="">Contraseña:</label>
-                          <input type="password" placeholder="Ingrese la contraseña..." name="password" />
+                          <input type="password" placeholder="Ingrese la contraseña..." name="password" value=""/>
                         </div>
                         <div class="form-section">
                           <label for="">Confirmar contraseña:</label>
-                          <input type="password" placeholder="Confirme la contraseña..." name="confirm_pass" />
+                          <input type="password" placeholder="Confirme la contraseña..." name="confirm_pass" value=""/>
                         </div>
                         <div class="form-section">
                           <label for="">Email:</label>

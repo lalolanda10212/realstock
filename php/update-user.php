@@ -1,7 +1,7 @@
 <?php
-require 'config.php';
-
 if (isset($_POST['update'], $_GET['user_id'])) {
+    require 'config.php';
+
     $user = $_POST['user'];
     $password = $_POST['password'];
     $confirm_pass = $_POST['confirm_pass'];
@@ -20,7 +20,7 @@ if (isset($_POST['update'], $_GET['user_id'])) {
 
     $user_id = $_GET['user_id'];
 
-    if (isset($password, $confirm_pass)) {
+    if ($password !== "") {
         $password = password_hash($password, PASSWORD_DEFAULT, array('cost' => 12));
 
         $stmt = $conn->prepare("UPDATE tbl_usuario SET usuario = ?, contrasena = ?, estado = ?, email = ?, nombres = ?, apellidos = ? WHERE usuario_id = '$user_id'");
@@ -38,7 +38,7 @@ if (isset($_POST['update'], $_GET['user_id'])) {
         </script>';
     } else {
         echo '<script type="text/javascript">
-        alert("Error al actualizar la información");
+        alert("No se actualizó la información");
         window.location.href = "../frm_registrar-usuarios.php";
         </script>';
     }
