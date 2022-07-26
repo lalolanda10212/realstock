@@ -65,7 +65,7 @@ require_once './php/session-data.php';
     <div class="content">
       <div class="cards-container">
         <div class="card">
-          <a href="frm_registrar-movimientos.html">
+          <a href="frm_registrar-movimientos.php">
             <div class="card-content">
               <div class="icono">
                 <img src="img/inventory.svg" alt="" />

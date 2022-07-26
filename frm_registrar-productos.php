@@ -354,7 +354,15 @@ require_once './php/session-data.php';
                 </div>
           <?php
               }
+            } else {
+              echo '<script type="text/javascript">
+              alert("No se encontraron productos registrados");
+              </script>';
             }
+          } else {
+            echo '<script type="text/javascript">
+            alert("Error al consultar productos");
+            </script>';
           }
           ?>
         </table>

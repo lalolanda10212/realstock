@@ -80,10 +80,10 @@ require_once './php/session-data.php';
               <i class="fa-solid fa-xmark" data-btn-close="modal"></i>
             </div>
             <div class="modal-content">
-              <form action="./php/add-third.php" method="post">
+              <form action="./php/add-third.php" method="post" autocomplete="off">
                 <div class="form-section">
                   <label for="">Tipo de documento:</label>
-                  <select name="document_type">
+                  <select required name="document_type">
                     <option value="">Seleccione el tipo de documento</option>
                     <option value="CC">Cédula de ciudadanía</option>
                     <option value="CE">Cédula de extranjería</option>
@@ -94,23 +94,23 @@ require_once './php/session-data.php';
                 </div>
                 <div class="form-section">
                   <label for="">No. de documento:</label>
-                  <input type="text" name="document" placeholder="Ingrese el No. de documento">
+                  <input type="text" required name="document" placeholder="Ingrese el No. de documento">
                 </div>
                 <div class="form-section">
                   <label for="">Razón social:</label>
-                  <input type="text" name="business_name" placeholder="Ingrese la razón social">
+                  <input type="text" required name="business_name" placeholder="Ingrese la razón social">
                 </div>
                 <div class="form-section">
                   <label for="">Estado:</label>
-                  <input type="text" name="status" placeholder="Ingrese el estado">
+                  <input type="text" required name="status" placeholder="Ingrese el estado">
                 </div>
                 <div class="form-section">
                   <label for="">Nombre de contacto:</label>
-                  <input type="text" name="contact_name" placeholder="Ingrese el nombre de contacto">
+                  <input type="text" required name="contact_name" placeholder="Ingrese el nombre de contacto">
                 </div>
                 <div class="form-section">
                   <label for="">Teléfono:</label>
-                  <input type="text" name="phone" placeholder="Ingrese el teléfono">
+                  <input type="text" required name="phone" placeholder="Ingrese el teléfono">
                 </div>
                 <div class="form-section">
                   <label for="">Página web:</label>
@@ -122,15 +122,15 @@ require_once './php/session-data.php';
                 </div>
                 <div class="form-section">
                   <label for="">Departamento:</label>
-                  <input type="text" name="department" placeholder="Ingrese el departament">
+                  <input type="text" required name="department" placeholder="Ingrese el departamento">
                 </div>
                 <div class="form-section">
                   <label for="">Ciudad:</label>
-                  <input type="text" name="city" placeholder="Ingrese la ciudad">
+                  <input type="text" required name="city" placeholder="Ingrese la ciudad">
                 </div>
                 <div class="form-section">
                   <label for="">Dirección:</label>
-                  <input type="text" name="address" placeholder="Ingrese la dirección">
+                  <input type="text" required name="address" placeholder="Ingrese la dirección">
                 </div>
                 <input class="btn btn-green" type="submit" name="save" value="Guardar" />
               </form>
@@ -317,7 +317,7 @@ require_once './php/session-data.php';
                         </div>
                         <div class="form-section">
                           <label for="">Departamento:</label>
-                          <input type="text" name="department" value="<?php echo $row['departamento'] ?>" placeholder="Ingrese el departament">
+                          <input type="text" name="department" value="<?php echo $row['departamento'] ?>" placeholder="Ingrese el departamento">
                         </div>
                         <div class="form-section">
                           <label for="">Ciudad:</label>
