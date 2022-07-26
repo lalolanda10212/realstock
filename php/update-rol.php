@@ -1,7 +1,7 @@
-<?php 
-require 'config.php';
-
+<?php
 if (isset($_POST['update'], $_GET['rol_id'])) {
+    require 'config.php';
+
     $rol = $_POST['rol'];
     $permissions = $_POST['permissions'];
     $per_json = json_encode($permissions);
@@ -12,9 +12,9 @@ if (isset($_POST['update'], $_GET['rol_id'])) {
     $stmt->bind_param("ss", $rol, $per_json);
 
     $stmt->execute();
-    if (($stmt) && ($stmt -> affected_rows == 1)) {
+    if (($stmt) && ($stmt->affected_rows == 1)) {
         echo '<script type="text/javascript">
-        alert("Se actualizo correctamente'. $rol .'");
+        alert("Se actualizo correctamente' . $rol . '");
         window.location.href = "../frm_crear-roles.php";
         </script>';
     } else {

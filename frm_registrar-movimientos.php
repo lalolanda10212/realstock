@@ -93,15 +93,15 @@ require_once './php/session-data.php';
                 </div>
                 <div class="form-section">
                   <label for="">Cantidad:</label>
-                  <input type="number" name="amount" required placeholder="Ingrese el número de unidades" />
+                  <input type="number" min="1" name="amount" required placeholder="Ingrese el número de unidades" />
                 </div>
                 <div class="form-section">
                   <label for="">Costo Unitario:</label>
-                  <input type="number" name="unit_cost" required placeholder="Ingrese el valor por unidad" />
+                  <input type="number" min="1" name="unit_cost" required placeholder="Ingrese el valor por unidad" />
                 </div>
                 <div class="form-section">
                   <label for="">Fecha:</label>
-                  <input type="date" name="date" required placeholder="dd/mm/aaaa" />
+                  <input type="date" name="date" required />
                 </div>
                 <div class="form-section">
                   <label for="">Descripción:</label>
@@ -160,16 +160,16 @@ require_once './php/session-data.php';
                         }
                         ?>
                       </select>
-                  <?php
+                    <?php
                     } else {
-                      echo '<script type="text/javascript">
-                      alert("Error al registrar la categoría");
-                      </script>';
+                    ?>
+                      <input type="text" disabled value="No hay terceros registrados">
+                    <?php
                     }
                   } else {
-                    echo '<script type="text/javascript">
-                    alert("Error al registrar la categoría");
-                    </script>';
+                    ?>
+                    <input type="text" disabled value="Error inesperado al consultar terceros">
+                  <?php
                   }
                   ?>
                 </div>
@@ -199,7 +199,7 @@ require_once './php/session-data.php';
           <?php
           include_once './php/config.php';
 
-          $query = "SELECT tbl_movimiento.movimiento_id, tbl_movimiento.tipo_movimiento, tbl_movimiento.subtipo_movimiento, tbl_movimiento.cantidad, tbl_movimiento.costo_unitario, tbl_movimiento.fecha, tbl_movimiento.descripcion, tbl_producto.modelo AS promodelo, tbl_tercero.nombre_contacto AS ternombre_contacto
+          $query = "SELECT tbl_movimiento.movimiento_id, tbl_movimiento.tipo_movimiento, tbl_movimiento.subtipo_movimiento, tbl_movimiento.cantidad, tbl_movimiento.costo_unitario, tbl_movimiento.fecha, tbl_movimiento.descripcion, tbl_producto.producto_id AS producto_id, tbl_producto.modelo AS promodelo, tbl_tercero.tercero_id AS tercero_id, tbl_tercero.nombre_contacto AS ternombre_contacto
           FROM ((tbl_movimiento
           INNER JOIN tbl_producto
           ON tbl_producto.producto_id = tbl_movimiento.tbl_producto_id)
@@ -236,48 +236,123 @@ require_once './php/session-data.php';
                       <i class="fa-solid fa-xmark" data-btn-close="modal"></i>
                     </div>
                     <div class="modal-content">
-                      <form action="#">
-                        <div class="form-section">
-                          <label for="">Fecha:</label>
-                          <input type="date" value="<?php echo $row['fecha'] ?>" />
-                        </div>
+                      <form action="./php/update-movement.php?movement_id=<?php echo $row['movimiento_id'] ?>" method="post">
                         <div class="form-section">
                           <label for="">Tipo de movimiento:</label>
-                          <select>
+                          <select name="type_movement" required>
                             <option value="">Seleccione el tipo de movimiento</option>
-                            <option value="Entrada">Entrada</option>
-                            <option value="Salida">Salida</option>
+                            <?php
+                            if ($row['tipo_movimiento'] == "Entrada") {
+                            ?>
+                              <option selected value="Entrada">Entrada</option>
+                              <option value="Salida">Salida</option>
+                            <?php
+                            } else {
+                            ?>
+                              <option value="Entrada">Entrada</option>
+                              <option selected value="Salida">Salida</option>
+                            <?php
+                            }
+                            ?>
                           </select>
                         </div>
                         <div class="form-section">
-                          <label for="">Subtipo movimiento:</label>
-                          <input type="text" placeholder="Seleccione" />
-                        </div>
-                        <div class="form-section">
-                          <label for="">Producto:</label>
-                          <input type="text" placeholder="Seleccione" />
+                          <label for="">Subtipo de movimiento:</label>
+                          <input type="text" name="subtype_movement" required value="<?php echo $row['subtipo_movimiento'] ?>" placeholder="Ingrese subtipo de movimiento" />
                         </div>
                         <div class="form-section">
                           <label for="">Cantidad:</label>
-                          <input type="number" placeholder="Ingrese el número de unidades" />
+                          <input type="number" min="1" name="amount" required value="<?php echo $row['cantidad'] ?>" placeholder="Ingrese el número de unidades" />
                         </div>
                         <div class="form-section">
                           <label for="">Costo Unitario:</label>
-                          <input type="number" placeholder="Ingrese el valor por unidad" />
+                          <input type="number" min="1" name="unit_cost" required value="<?php echo $row['costo_unitario'] ?>" placeholder="Ingrese el valor por unidad" />
+                        </div>
+                        <div class="form-section">
+                          <label for="">Fecha:</label>
+                          <input type="date" name="date" required value="<?php echo $row['fecha'] ?>" />
                         </div>
                         <div class="form-section">
                           <label for="">Descripción:</label>
-                          <input type="text" placeholder="Describa el movimiento" />
+                          <input type="text" name="description" required value="<?php echo $row['descripcion'] ?>" placeholder="Describa el movimiento" />
+                        </div>
+                        <div class="form-section">
+                          <label for="">Producto:</label>
+                          <?php
+                          $query_pro = "SELECT producto_id, modelo FROM tbl_producto";
+                          $result_pro = mysqli_query($conn, $query_pro);
+
+                          if ($result_pro) {
+                            if (mysqli_num_rows($result_pro) > 0) {
+                          ?>
+                              <select required name="product">
+                                <option value="">Seleccione el producto</option>
+                                <?php
+                                foreach ($result_pro as $row_pro) {
+                                  if ($row_pro['producto_id'] == $row['producto_id']) {
+                                ?>
+                                    <option selected value="<?php echo $row_pro['producto_id'] ?>"><?php echo $row_pro['modelo'] ?></option>
+                                  <?php
+                                  } else {
+                                  ?>
+                                    <option value="<?php echo $row_pro['producto_id'] ?>"><?php echo $row_pro['modelo'] ?></option>
+                                <?php
+                                  }
+                                }
+                                ?>
+                              </select>
+                            <?php
+                            } else {
+                            ?>
+                              <input type="text" disabled value="No se encontraron productos registrados">
+                            <?php
+                            }
+                          } else {
+                            ?>
+                            <input type="text" disabled value="Error inesperado al consultar productos">
+                          <?php
+                          }
+                          ?>
                         </div>
                         <div class="form-section">
                           <label for="">Tercero:</label>
-                          <input type="select" placeholder="Seleccione" />
+                          <?php
+                          $query_ter = "SELECT tercero_id, nombre_contacto FROM tbl_tercero";
+                          $result_ter = mysqli_query($conn, $query_ter);
+
+                          if ($result_ter) {
+                            if (mysqli_num_rows($result_ter) > 0) {
+                          ?>
+                              <select required name="third">
+                                <option value="">Seleccione al tercero</option>
+                                <?php
+                                foreach ($result_ter as $row_ter) {
+                                  if ($row_ter['tercero_id'] == $row['tercero_id']) {
+                                ?>
+                                    <option selected value="<?php echo $row_ter['tercero_id'] ?>"><?php echo $row_ter['nombre_contacto'] ?></option>
+                                  <?php
+                                  } else {
+                                  ?>
+                                    <option value="<?php echo $row_ter['tercero_id'] ?>"><?php echo $row_ter['nombre_contacto'] ?></option>
+                                <?php
+                                  }
+                                }
+                                ?>
+                              </select>
+                            <?php
+                            } else {
+                            ?>
+                              <input type="text" disabled value="No se encontraron terceros registrados">
+                            <?php
+                            }
+                          } else {
+                            ?>
+                            <input type="text" disabled value="Error inesperado al consultar terceros">
+                          <?php
+                          }
+                          ?>
                         </div>
-                        <div class="form-section">
-                          <label for="">Responsable:</label>
-                          <input type="text" placeholder="Ingrese el nombre del responsable" />
-                        </div>
-                        <input class="btn btn-green submit" type="submit" value="Actualizar" />
+                        <input class="btn btn-green submit" type="submit" name="update" value="Actualizar" />
                       </form>
                     </div>
                   </div>
