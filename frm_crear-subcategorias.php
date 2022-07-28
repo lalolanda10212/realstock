@@ -62,11 +62,13 @@
     </header>
     <div class="content">
       <div class="items-container">
-        <div class="search-bar">
-          <div class="icon-search">
-            <i class="fa-solid fa-magnifying-glass"></i>
-          </div>
-          <input type="text" placeholder="Buscar Subcategoría..." />
+        <div class="search-group">
+          <form action="#" method="post">
+            <input class="search-bar" name="data" type="text" placeholder="Buscar usuario..." />
+            <button class="icon-search" type="submit">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+          </form>
         </div>
         <button class="btn btn-green" data-btn-modal="true" data-modal="#m-crear-subcategoria">Registar Subcategoría</button>
         <div class="modal-wrapper" id="m-crear-subcategoria">

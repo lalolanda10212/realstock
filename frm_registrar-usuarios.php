@@ -12,8 +12,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300&display=swap" rel="stylesheet" />
-  <script defer src="js/script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
   <script defer src="https://kit.fontawesome.com/707789a0bc.js" crossorigin="anonymous"></script>
+  <script defer src="js/script.js"></script>
 </head>
 
 <body>
@@ -64,11 +65,11 @@
     <div class="content">
       <div class="items-container">
         <a href="frm_crear-roles.php" class="btn btn-blue">Roles</a>
-        <div class="search-bar">
-          <div class="icon-search">
+        <div class="search-group">
+          <input class="search-bar" name="data" type="text" placeholder="Buscar usuario..." />
+          <button class="icon-search">
             <i class="fa-solid fa-magnifying-glass"></i>
-          </div>
-          <input type="text" placeholder="Buscar usuario..." />
+          </button>
         </div>
         <button class="btn btn-green" data-btn-modal="true" data-modal="#m-registrar-usuario">Registrar</button>
         <div class="modal-wrapper" id="m-registrar-usuario">
@@ -132,111 +133,112 @@
             <td class="cell-center">Editar</td>
             <td class="cell-center">Asignar</td>
           </tr>
+          <tbody id="content-table">
+            <?php
+            include_once 'php/config.php';
+            $query = "SELECT * FROM tbl_usuario";
+            $result = mysqli_query($conn, $query);
 
-          <?php
-          include_once 'php/config.php';
-          $query = "SELECT * FROM tbl_usuario";
-          $result = mysqli_query($conn, $query);
+            if ($result) {
+              if (mysqli_num_rows($result) > 0) {
+                foreach ($result as $row) {
+            ?>
+                  <tr>
+                    <td class="cell-center"><?php echo $row['usuario_id'] ?></td>
+                    <td><?php echo $row['usuario'] ?></td>
+                    <td><?php echo $row['email'] ?></td>
+                    <td><?php echo $row['nombres'] ?></td>
+                    <td><?php echo $row['apellidos'] ?></td>
+                    <?php
+                    if ($row['estado'] == "activo") {
+                      $status_img = "aceptar.png";
+                    } else {
+                      $status_img = "cancelar.png";
+                    }
+                    ?>
+                    <td class="cell-center"><img src="img/<?php echo $status_img ?>" alt="" /></td>
+                    <td class="cell-center">
+                      <div title="Editar" data-btn-modal="true" data-modal="#m-editar-usuario_<?php echo $row['usuario_id'] ?>"><img src="img/editar.png" alt="Editar" /></div>
+                    </td>
+                    <td class="cell-center">
+                      <button class="btn btn-purple" data-btn-modal="true" data-modal="#m-asignar-rol">
+                        <i class="fa-solid fa-unlock-keyhole"></i>Asignar rol
+                      </button>
+                    </td>
+                  </tr>
 
-          if ($result) {
-            if (mysqli_num_rows($result) > 0) {
-              foreach ($result as $row) {
-          ?>
-                <tr>
-                  <td class="cell-center"><?php echo $row['usuario_id'] ?></td>
-                  <td><?php echo $row['usuario'] ?></td>
-                  <td><?php echo $row['email'] ?></td>
-                  <td><?php echo $row['nombres'] ?></td>
-                  <td><?php echo $row['apellidos'] ?></td>
-                  <?php
-                  if ($row['estado'] == "activo") {
-                    $status_img = "aceptar.png";
-                  } else {
-                    $status_img = "cancelar.png";
-                  }
-                  ?>
-                  <td class="cell-center"><img src="img/<?php echo $status_img ?>" alt="" /></td>
-                  <td class="cell-center">
-                    <div title="Editar" data-btn-modal="true" data-modal="#m-editar-usuario_<?php echo $row['usuario_id'] ?>"><img src="img/editar.png" alt="Editar" /></div>
-                  </td>
-                  <td class="cell-center">
-                    <button class="btn btn-purple" data-btn-modal="true" data-modal="#m-asignar-rol">
-                      <i class="fa-solid fa-unlock-keyhole"></i>Asignar rol
-                    </button>
-                  </td>
-                </tr>
-
-                <div class="modal-wrapper" id="m-editar-usuario_<?php echo $row['usuario_id'] ?>">
-                  <div class="modal">
-                    <div class="modal-header">
-                      <div>Editar información de usuario</div>
-                      <i class="fa-solid fa-xmark" data-btn-close="modal"></i>
-                    </div>
-                    <div class="modal-content">
-                      <form action="./php/update-user.php?user_id=<?php echo $row['usuario_id'] ?>" method="post">
-                        <div class="form-section">
-                          <label for="">Usuario:</label>
-                          <input type="text" placeholder="Ingrese el nombre de usuario..." name="user" value="<?php echo $row['usuario'] ?>" />
-                        </div>
-                        <div class="form-section">
-                          <label for="">Contraseña:</label>
-                          <input type="password" placeholder="Ingrese la contraseña..." name="password" value=""/>
-                        </div>
-                        <div class="form-section">
-                          <label for="">Confirmar contraseña:</label>
-                          <input type="password" placeholder="Confirme la contraseña..." name="confirm_pass" value=""/>
-                        </div>
-                        <div class="form-section">
-                          <label for="">Email:</label>
-                          <input type="text" placeholder="Ingrese el email..." name="email" value="<?php echo $row['email'] ?>" />
-                        </div>
-                        <div class="form-section">
-                          <label for="">Nombres:</label>
-                          <input type="text" placeholder="Ingrese nombre..." name="name" value="<?php echo $row['nombres'] ?>" />
-                        </div>
-                        <div class="form-section">
-                          <label for="">Apellidos:</label>
-                          <input type="text" placeholder="Ingrese apellidos..." name="last_name" value="<?php echo $row['apellidos'] ?>" />
-                        </div>
-                        <div class="form-section">
-                          <label for="">Estado:</label>
-                          <select name="status" required>
-                            <?php
-                            if ($row['estado'] == "activo") {
-                            ?>
-                              <option value="">Seleccione el estado del usuario</option>
-                              <option value="activo" selected>Activo</option>
-                              <option value="desactivo">Desactivo</option>
-                            <?php
-                            } else {
-                            ?>
-                              <option value="">Seleccione el estado del usuario</option>
-                              <option value="activo">Activo</option>
-                              <option value="desactivo" selected>Desactivo</option>
-                            <?php
-                            }
-                            ?>
-                          </select>
-                        </div>
-                        <input class="btn btn-green submit" type="submit" name="update" value="Actualizar" />
-                      </form>
+                  <div class="modal-wrapper" id="m-editar-usuario_<?php echo $row['usuario_id'] ?>">
+                    <div class="modal">
+                      <div class="modal-header">
+                        <div>Editar información de usuario</div>
+                        <i class="fa-solid fa-xmark" data-btn-close="modal"></i>
+                      </div>
+                      <div class="modal-content">
+                        <form action="./php/update-user.php?user_id=<?php echo $row['usuario_id'] ?>" method="post">
+                          <div class="form-section">
+                            <label for="">Usuario:</label>
+                            <input type="text" placeholder="Ingrese el nombre de usuario..." name="user" value="<?php echo $row['usuario'] ?>" />
+                          </div>
+                          <div class="form-section">
+                            <label for="">Contraseña:</label>
+                            <input type="password" placeholder="Ingrese la contraseña..." name="password" value="" />
+                          </div>
+                          <div class="form-section">
+                            <label for="">Confirmar contraseña:</label>
+                            <input type="password" placeholder="Confirme la contraseña..." name="confirm_pass" value="" />
+                          </div>
+                          <div class="form-section">
+                            <label for="">Email:</label>
+                            <input type="text" placeholder="Ingrese el email..." name="email" value="<?php echo $row['email'] ?>" />
+                          </div>
+                          <div class="form-section">
+                            <label for="">Nombres:</label>
+                            <input type="text" placeholder="Ingrese nombre..." name="name" value="<?php echo $row['nombres'] ?>" />
+                          </div>
+                          <div class="form-section">
+                            <label for="">Apellidos:</label>
+                            <input type="text" placeholder="Ingrese apellidos..." name="last_name" value="<?php echo $row['apellidos'] ?>" />
+                          </div>
+                          <div class="form-section">
+                            <label for="">Estado:</label>
+                            <select name="status" required>
+                              <?php
+                              if ($row['estado'] == "activo") {
+                              ?>
+                                <option value="">Seleccione el estado del usuario</option>
+                                <option value="activo" selected>Activo</option>
+                                <option value="desactivo">Desactivo</option>
+                              <?php
+                              } else {
+                              ?>
+                                <option value="">Seleccione el estado del usuario</option>
+                                <option value="activo">Activo</option>
+                                <option value="desactivo" selected>Desactivo</option>
+                              <?php
+                              }
+                              ?>
+                            </select>
+                          </div>
+                          <input class="btn btn-green submit" type="submit" name="update" value="Actualizar" />
+                        </form>
+                      </div>
                     </div>
                   </div>
-                </div>
-          <?php
+            <?php
+                }
+              } else {
+                echo '<script type="text/javascript">
+                alert("No se encontraron usuarios registrados");
+                </script>';
               }
             } else {
               echo '<script type="text/javascript">
-                alert("No se encontraron usuarios registrados");
-                </script>';
-            }
-          } else {
-            echo '<script type="text/javascript">
               alert("Error al consultar la lista de usuarios");
               </script>';
-          }
+            }
 
-          ?>
+            ?>
+          </tbody>
         </table>
       </div>
     </div>
