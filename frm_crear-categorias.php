@@ -12,8 +12,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300&display=swap" rel="stylesheet" />
-  <script defer src="js/script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
   <script defer src="https://kit.fontawesome.com/707789a0bc.js" crossorigin="anonymous"></script>
+  <script defer src="js/script.js"></script>
 </head>
 
 <body>
@@ -63,12 +64,10 @@
     <div class="content">
       <div class="items-container">
         <div class="search-group">
-          <form action="#" method="post">
-            <input class="search-bar" name="data" type="text" placeholder="Buscar usuario..." />
-            <button class="icon-search" type="submit">
-              <i class="fa-solid fa-magnifying-glass"></i>
-            </button>
-          </form>
+          <input class="search-bar" placeholder="Buscar categoría..." />
+          <button class="icon-search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
         </div>
         <button class="btn btn-green" data-btn-modal="true" data-modal="#m-crear-categoria">Registar Categoría</button>
         <div class="modal-wrapper" id="m-crear-categoria">
@@ -106,79 +105,81 @@
             <td class="cell-center">Eliminar</td>
             <td class="cell-center">Editar</td>
           </tr>
-          <?php
-          include_once './php/config.php';
-          $query = "SELECT * FROM tbl_categoria";
-          $result = mysqli_query($conn, $query);
+          <tbody id="content-table">
+            <?php
+            include_once './php/config.php';
+            $query = "SELECT * FROM tbl_categoria";
+            $result = mysqli_query($conn, $query);
 
-          if ($result) {
-            if (mysqli_num_rows($result) > 0) {
-              foreach ($result as $row) {
-          ?>
-                <tr>
-                  <td class="cell-center"><?php echo $row['categoria_id'] ?></td>
-                  <td><?php echo $row['nombre'] ?></td>
-                  <td><?php echo $row['descripcion'] ?></td>
-                  <td class="cell-center">
-                    <div data-btn-modal="true" data-modal="#m-eliminar-rol_<?php echo $row['categoria_id'] ?>"><img src="img/delete.png" alt="" /></div>
-                  </td>
-                  <td class="cell-center">
-                    <div title="Editar" data-btn-modal="true" data-modal="#m-editar-rol_<?php echo $row['categoria_id'] ?>"><img src="img/editar.png" alt="Editar" /></div>
-                  </td>
-                </tr>
+            if ($result) {
+              if (mysqli_num_rows($result) > 0) {
+                foreach ($result as $row) {
+            ?>
+                  <tr>
+                    <td class="cell-center"><?php echo $row['categoria_id'] ?></td>
+                    <td><?php echo $row['nombre'] ?></td>
+                    <td><?php echo $row['descripcion'] ?></td>
+                    <td class="cell-center">
+                      <div data-btn-modal="true" data-modal="#m-eliminar-rol_<?php echo $row['categoria_id'] ?>"><img src="img/delete.png" alt="" /></div>
+                    </td>
+                    <td class="cell-center">
+                      <div title="Editar" data-btn-modal="true" data-modal="#m-editar-rol_<?php echo $row['categoria_id'] ?>"><img src="img/editar.png" alt="Editar" /></div>
+                    </td>
+                  </tr>
 
-                <div class="modal-wrapper" id="m-eliminar-rol_<?php echo $row['categoria_id'] ?>">
-                  <div class="modal">
-                    <div class="modal-header">
-                      <div>Eliminar categoría</div>
-                      <i class="fa-solid fa-xmark" data-btn-close="modal"></i>
-                    </div>
-                    <div class="modal-content">
-                      <h2>¿Está seguro de eliminar “<?php echo $row['nombre'] ?>"</h2>
-                      <div class="options-delete">
-                        <a href="./php/delete-category.php?category_id=<?php echo $row['categoria_id'] ?>" class="btn btn-red">Eliminar</a>
-                        <button class="btn btn-gray" data-btn-cancel="modal">Cancelar</button>
+                  <div class="modal-wrapper" id="m-eliminar-rol_<?php echo $row['categoria_id'] ?>">
+                    <div class="modal">
+                      <div class="modal-header">
+                        <div>Eliminar categoría</div>
+                        <i class="fa-solid fa-xmark" data-btn-close="modal"></i>
+                      </div>
+                      <div class="modal-content">
+                        <h2>¿Está seguro de eliminar “<?php echo $row['nombre'] ?>"</h2>
+                        <div class="options-delete">
+                          <a href="./php/delete-category.php?category_id=<?php echo $row['categoria_id'] ?>" class="btn btn-red">Eliminar</a>
+                          <button class="btn btn-gray" data-btn-cancel="modal">Cancelar</button>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
 
-                <div class="modal-wrapper" id="m-editar-rol_<?php echo $row['categoria_id'] ?>">
-                  <div class="modal">
-                    <div class="modal-header">
-                      <div>Editar categoría</div>
-                      <i class="fa-solid fa-xmark" data-btn-close="modal"></i>
-                    </div>
-                    <div class="modal-content">
-                      <form action="./php/update-category.php?category_id=<?php echo $row['categoria_id'] ?>" method="post" autocomplete="off">
-                        <div class="form-section">
-                          <label for="">Nombre categoría:</label>
-                          <input type="text" name="category" required value="<?php echo $row['nombre'] ?>" placeholder="Ingrese el nombre de la categoría..." />
-                        </div>
-                        <div class="form-section">
-                          <label for="">Descripción:</label>
-                          <br>
-                          <textarea name="description" required rows="8" cols="49"><?php echo $row['descripcion'] ?></textarea>
-                        </div>
-                        </label>
-                        <input class="btn btn-green submit" type="submit" name="update" value="Actualizar" />
-                      </form>
+                  <div class="modal-wrapper" id="m-editar-rol_<?php echo $row['categoria_id'] ?>">
+                    <div class="modal">
+                      <div class="modal-header">
+                        <div>Editar categoría</div>
+                        <i class="fa-solid fa-xmark" data-btn-close="modal"></i>
+                      </div>
+                      <div class="modal-content">
+                        <form action="./php/update-category.php?category_id=<?php echo $row['categoria_id'] ?>" method="post" autocomplete="off">
+                          <div class="form-section">
+                            <label for="">Nombre categoría:</label>
+                            <input type="text" name="category" required value="<?php echo $row['nombre'] ?>" placeholder="Ingrese el nombre de la categoría..." />
+                          </div>
+                          <div class="form-section">
+                            <label for="">Descripción:</label>
+                            <br>
+                            <textarea name="description" required rows="8" cols="49"><?php echo $row['descripcion'] ?></textarea>
+                          </div>
+                          </label>
+                          <input class="btn btn-green submit" type="submit" name="update" value="Actualizar" />
+                        </form>
+                      </div>
                     </div>
                   </div>
-                </div>
-          <?php
+            <?php
+                }
+              } else {
+                echo '<script type="text/javascript">
+              alert("No se encontraron categorías registradas");
+              </script>';
               }
             } else {
               echo '<script type="text/javascript">
-              alert("No se encontraron categorías registradas");
-              </script>';
-            }
-          } else {
-            echo '<script type="text/javascript">
             alert("Error al consultar las subcategorías");
             </script>';
-          }
-          ?>
+            }
+            ?>
+          </tbody>
         </table>
       </div>
     </div>

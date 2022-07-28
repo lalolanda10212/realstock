@@ -14,8 +14,9 @@ require_once './php/session-data.php';
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300&display=swap" rel="stylesheet" />
-  <script defer src="js/script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
   <script defer src="https://kit.fontawesome.com/707789a0bc.js" crossorigin="anonymous"></script>
+  <script defer src="js/script.js"></script>
 </head>
 
 <body>
@@ -66,12 +67,10 @@ require_once './php/session-data.php';
     <div class="content">
       <div class="items-container">
         <div class="search-group">
-          <form action="#" method="post">
-            <input class="search-bar" name="data" type="text" placeholder="Buscar usuario..." />
-            <button class="icon-search" type="submit">
-              <i class="fa-solid fa-magnifying-glass"></i>
-            </button>
-          </form>
+          <input class="search-bar" placeholder="Buscar producto..." />
+          <button class="icon-search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
         </div>
         <button class="btn btn-green" data-btn-modal="true" data-modal="#m-registrar-usuario">Agregar Producto</button>
         <div class="modal-wrapper" id="m-registrar-usuario">
@@ -183,190 +182,192 @@ require_once './php/session-data.php';
             <td>Descripción</td>
             <td class="cell-center">Editar</td>
           </tr>
-          <?php
-          $query = "SELECT tbl_categoria.nombre AS catnombre, tbl_subcategoria.nombre AS subcatnombre, tbl_producto.producto_id, tbl_producto.no_serie, tbl_producto.contador_inicial, tbl_producto.anotacion, tbl_producto.stock_maximo, tbl_producto.stock_minimo, tbl_producto.estado, tbl_producto.marca_fabricante, tbl_producto.modelo, tbl_producto.descripcion
+          <tbody id="content-table">
+            <?php
+            $query = "SELECT tbl_categoria.nombre AS catnombre, tbl_subcategoria.nombre AS subcatnombre, tbl_producto.producto_id, tbl_producto.no_serie, tbl_producto.contador_inicial, tbl_producto.anotacion, tbl_producto.stock_maximo, tbl_producto.stock_minimo, tbl_producto.estado, tbl_producto.marca_fabricante, tbl_producto.modelo, tbl_producto.descripcion
           FROM ((tbl_producto
           INNER JOIN tbl_subcategoria
           ON tbl_subcategoria.subcategoria_id = tbl_producto.tbl_subcategoria_id)
           INNER JOIN tbl_categoria
           ON tbl_categoria.categoria_id = tbl_subcategoria.tbl_categoria_id)";
 
-          $result = mysqli_query($conn, $query);
+            $result = mysqli_query($conn, $query);
 
-          if ($result) {
-            if (mysqli_num_rows($result) > 0) {
-              foreach ($result as $row) {
-          ?>
-                <tr>
-                  <td class="cell-center"><?php echo $row['producto_id'] ?></td>
-                  <td><?php echo $row['catnombre'] ?></td>
-                  <td><?php echo $row['subcatnombre'] ?></td>
-                  <td><?php echo $row['no_serie'] ?></td>
-                  <td><?php echo $row['contador_inicial'] ?></td>
-                  <td><?php echo $row['anotacion'] ?></td>
-                  <td><?php echo $row['stock_maximo'] ?></td>
-                  <td><?php echo $row['stock_minimo'] ?></td>
-                  <td><?php echo $row['estado'] ?></td>
-                  <td><?php echo $row['marca_fabricante'] ?></td>
-                  <td><?php echo $row['modelo'] ?></td>
-                  <td><?php echo $row['descripcion'] ?></td>
-                  <td class="cell-center">
-                    <div title="Editar" title="Editar" data-btn-modal="true" data-modal="#m-editar-usuario_<?php echo $row['producto_id'] ?>"><img src="img/editar.png" alt="Editar" /></div>
-                  </td>
-                </tr>
+            if ($result) {
+              if (mysqli_num_rows($result) > 0) {
+                foreach ($result as $row) {
+            ?>
+                  <tr>
+                    <td class="cell-center"><?php echo $row['producto_id'] ?></td>
+                    <td><?php echo $row['catnombre'] ?></td>
+                    <td><?php echo $row['subcatnombre'] ?></td>
+                    <td><?php echo $row['no_serie'] ?></td>
+                    <td><?php echo $row['contador_inicial'] ?></td>
+                    <td><?php echo $row['anotacion'] ?></td>
+                    <td><?php echo $row['stock_maximo'] ?></td>
+                    <td><?php echo $row['stock_minimo'] ?></td>
+                    <td><?php echo $row['estado'] ?></td>
+                    <td><?php echo $row['marca_fabricante'] ?></td>
+                    <td><?php echo $row['modelo'] ?></td>
+                    <td><?php echo $row['descripcion'] ?></td>
+                    <td class="cell-center">
+                      <div title="Editar" title="Editar" data-btn-modal="true" data-modal="#m-editar-usuario_<?php echo $row['producto_id'] ?>"><img src="img/editar.png" alt="Editar" /></div>
+                    </td>
+                  </tr>
 
-                <div class="modal-wrapper" id="m-editar-usuario_<?php echo $row['producto_id'] ?>">
-                  <div class="modal">
-                    <div class="modal-header">
-                      <div>Editar información de Producto "<?php echo $row['producto_id'] ?>"</div>
-                      <i class="fa-solid fa-xmark" data-btn-close="modal"></i>
-                    </div>
-                    <div class="modal-content">
-                      <form action="./php/update-product.php?product_id=<?php echo $row['producto_id'] ?>" method="post">
-                        <div class="form-section">
-                          <label for="">Subcategoría:</label>
-                          <?php
-                          $query_subcat = "SELECT subcategoria_id, nombre FROM tbl_subcategoria";
-                          $result_subcat = mysqli_query($conn, $query_subcat);
-
-                          if ($result_subcat) {
-                            if (mysqli_num_rows($result_subcat) > 0) {
-                          ?>
-                              <select required name="subcategory">
-                                <option value="">Seleccione la subcategoría</option>
-                                <?php
-                                foreach ($result_subcat as $row_subcat) {
-                                  if ($row_subcat['nombre'] == $row['subcatnombre']) {
-                                ?>
-                                    <option selected value="<?php echo $row_subcat['subcategoria_id'] ?>"><?php echo $row_subcat['nombre'] ?></option>
-                                  <?php
-                                  } else {
-                                  ?>
-                                    <option value="<?php echo $row_subcat['subcategoria_id'] ?>"><?php echo $row_subcat['nombre'] ?></option>
-                                <?php
-                                  }
-                                }
-                                ?>
-                              </select>
+                  <div class="modal-wrapper" id="m-editar-usuario_<?php echo $row['producto_id'] ?>">
+                    <div class="modal">
+                      <div class="modal-header">
+                        <div>Editar información del producto</div>
+                        <i class="fa-solid fa-xmark" data-btn-close="modal"></i>
+                      </div>
+                      <div class="modal-content">
+                        <form action="./php/update-product.php?product_id=<?php echo $row['producto_id'] ?>" method="post">
+                          <div class="form-section">
+                            <label for="">Subcategoría:</label>
                             <?php
-                            } else {
+                            $query_subcat = "SELECT subcategoria_id, nombre FROM tbl_subcategoria";
+                            $result_subcat = mysqli_query($conn, $query_subcat);
+
+                            if ($result_subcat) {
+                              if (mysqli_num_rows($result_subcat) > 0) {
                             ?>
-                              <input type="text" disabled value="No se encontraron subcategorías registradas">
-                          <?php
-                            }
-                          } else {
-                            echo '<script type="text/javascript">
+                                <select required name="subcategory">
+                                  <option value="">Seleccione la subcategoría</option>
+                                  <?php
+                                  foreach ($result_subcat as $row_subcat) {
+                                    if ($row_subcat['nombre'] == $row['subcatnombre']) {
+                                  ?>
+                                      <option selected value="<?php echo $row_subcat['subcategoria_id'] ?>"><?php echo $row_subcat['nombre'] ?></option>
+                                    <?php
+                                    } else {
+                                    ?>
+                                      <option value="<?php echo $row_subcat['subcategoria_id'] ?>"><?php echo $row_subcat['nombre'] ?></option>
+                                  <?php
+                                    }
+                                  }
+                                  ?>
+                                </select>
+                              <?php
+                              } else {
+                              ?>
+                                <input type="text" disabled value="No se encontraron subcategorías registradas">
+                            <?php
+                              }
+                            } else {
+                              echo '<script type="text/javascript">
                             alert("Error al consultar las subcategorías");
                             </script>';
-                          }
-                          ?>
-                        </div>
-                        <div class="form-section">
-                          <label for="">No de serie:</label>
-                          <input required type="number" name="serial" min="1" value="<?php echo $row['no_serie'] ?>" placeholder="Ingrese el no de serie" />
-                        </div>
-                        <div class="form-section">
-                          <label for="">Contador inicial:</label>
-                          <input required type="text" name="initial_counter" value="<?php echo $row['contador_inicial'] ?>" placeholder="Ingrese el contador inicial" />
-                        </div>
-                        <div class="form-section">
-                          <label for="">Anotación:</label>
-                          <input required type="text" name="annotation" value="<?php echo $row['anotacion'] ?>" placeholder="Ingrese la anotación" />
-                        </div>
-                        <div class="form-section">
-                          <label for="">Stock máximo:</label>
-                          <input required type="number" min="1" name="max_stock" value="<?php echo $row['stock_maximo'] ?>" placeholder="Ingrese el stock máximo" />
-                        </div>
-                        <div class="form-section">
-                          <label for="">Stock mínimo:</label>
-                          <input required type="number" min="1" name="min_stock" value="<?php echo $row['stock_minimo'] ?>" placeholder="Ingrese el stock mínimo" />
-                        </div>
-                        <div class="form-section">
-                          <label for="">Estado:</label>
-                          <?php
-                          switch ($row['estado']) {
-                            case 'Rentado':
-                          ?>
-                              <select required name="status">
-                                <option value="">Selecione un estado</option>
-                                <option selected value="Rentado">Rentado</option>
-                                <option value="Asignado">Asignado</option>
-                                <option value="Libre">Libre</option>
-                                <option value="Dado de Baja">Dado de Baja</option>
-                              </select>
-                            <?php
-                              break;
-                            case 'Asignado':
+                            }
                             ?>
-                              <select required name="status">
-                                <option value="">Selecione un estado</option>
-                                <option value="Rentado">Rentado</option>
-                                <option selected value="Asignado">Asignado</option>
-                                <option value="Libre">Libre</option>
-                                <option value="Dado de Baja">Dado de Baja</option>
-                              </select>
+                          </div>
+                          <div class="form-section">
+                            <label for="">No de serie:</label>
+                            <input required type="number" name="serial" min="1" value="<?php echo $row['no_serie'] ?>" placeholder="Ingrese el no de serie" />
+                          </div>
+                          <div class="form-section">
+                            <label for="">Contador inicial:</label>
+                            <input required type="text" name="initial_counter" value="<?php echo $row['contador_inicial'] ?>" placeholder="Ingrese el contador inicial" />
+                          </div>
+                          <div class="form-section">
+                            <label for="">Anotación:</label>
+                            <input required type="text" name="annotation" value="<?php echo $row['anotacion'] ?>" placeholder="Ingrese la anotación" />
+                          </div>
+                          <div class="form-section">
+                            <label for="">Stock máximo:</label>
+                            <input required type="number" min="1" name="max_stock" value="<?php echo $row['stock_maximo'] ?>" placeholder="Ingrese el stock máximo" />
+                          </div>
+                          <div class="form-section">
+                            <label for="">Stock mínimo:</label>
+                            <input required type="number" min="1" name="min_stock" value="<?php echo $row['stock_minimo'] ?>" placeholder="Ingrese el stock mínimo" />
+                          </div>
+                          <div class="form-section">
+                            <label for="">Estado:</label>
                             <?php
-                              break;
-                            case 'Libre':
+                            switch ($row['estado']) {
+                              case 'Rentado':
                             ?>
-                              <select required name="status">
-                                <option value="">Selecione un estado</option>
-                                <option value="Rentado">Rentado</option>
-                                <option value="Asignado">Asignado</option>
-                                <option selected value="Libre">Libre</option>
-                                <option value="Dado de Baja">Dado de Baja</option>
-                              </select>
+                                <select required name="status">
+                                  <option value="">Selecione un estado</option>
+                                  <option selected value="Rentado">Rentado</option>
+                                  <option value="Asignado">Asignado</option>
+                                  <option value="Libre">Libre</option>
+                                  <option value="Dado de Baja">Dado de Baja</option>
+                                </select>
+                              <?php
+                                break;
+                              case 'Asignado':
+                              ?>
+                                <select required name="status">
+                                  <option value="">Selecione un estado</option>
+                                  <option value="Rentado">Rentado</option>
+                                  <option selected value="Asignado">Asignado</option>
+                                  <option value="Libre">Libre</option>
+                                  <option value="Dado de Baja">Dado de Baja</option>
+                                </select>
+                              <?php
+                                break;
+                              case 'Libre':
+                              ?>
+                                <select required name="status">
+                                  <option value="">Selecione un estado</option>
+                                  <option value="Rentado">Rentado</option>
+                                  <option value="Asignado">Asignado</option>
+                                  <option selected value="Libre">Libre</option>
+                                  <option value="Dado de Baja">Dado de Baja</option>
+                                </select>
+                              <?php
+                                break;
+                              case 'Dado de Baja':
+                              ?>
+                                <select required name="status">
+                                  <option value="">Selecione un estado</option>
+                                  <option value="Rentado">Rentado</option>
+                                  <option value="Asignado">Asignado</option>
+                                  <option value="Libre">Libre</option>
+                                  <option selected value="Dado de Baja">Dado de Baja</option>
+                                </select>
+                              <?php
+                                break;
+                              default:
+                              ?>
+                                <input disabled type="text" value="Error inesperado">
                             <?php
-                              break;
-                            case 'Dado de Baja':
+                                break;
+                            }
                             ?>
-                              <select required name="status">
-                                <option value="">Selecione un estado</option>
-                                <option value="Rentado">Rentado</option>
-                                <option value="Asignado">Asignado</option>
-                                <option value="Libre">Libre</option>
-                                <option selected value="Dado de Baja">Dado de Baja</option>
-                              </select>
-                            <?php
-                              break;
-                            default:
-                            ?>
-                              <input disabled type="text" value="Error inesperado">
-                          <?php
-                              break;
-                          }
-                          ?>
-                        </div>
-                        <div class="form-section">
-                          <label for="">Marca del fabricante:</label>
-                          <input required type="text" name="brand" value="<?php echo $row['marca_fabricante'] ?>" placeholder="Ingrese la marca del fabricante" />
-                        </div>
-                        <div class="form-section">
-                          <label for="">Modelo:</label>
-                          <input required type="text" name="model" value="<?php echo $row['modelo'] ?>" placeholder="Ingrese el modelo" />
-                        </div>
-                        <div class="form-section">
-                          <label for="">Descripción:</label>
-                          <textarea name="description" cols="49" rows="10"><?php echo $row['descripcion'] ?></textarea>
-                        </div>
-                        <input class="btn btn-green submit" type="submit" name="update" value="Actualizar" />
-                      </form>
+                          </div>
+                          <div class="form-section">
+                            <label for="">Marca del fabricante:</label>
+                            <input required type="text" name="brand" value="<?php echo $row['marca_fabricante'] ?>" placeholder="Ingrese la marca del fabricante" />
+                          </div>
+                          <div class="form-section">
+                            <label for="">Modelo:</label>
+                            <input required type="text" name="model" value="<?php echo $row['modelo'] ?>" placeholder="Ingrese el modelo" />
+                          </div>
+                          <div class="form-section">
+                            <label for="">Descripción:</label>
+                            <textarea name="description" cols="49" rows="10"><?php echo $row['descripcion'] ?></textarea>
+                          </div>
+                          <input class="btn btn-green submit" type="submit" name="update" value="Actualizar" />
+                        </form>
+                      </div>
                     </div>
                   </div>
-                </div>
-          <?php
+            <?php
+                }
+              } else {
+                echo '<script type="text/javascript">
+              alert("No se encontraron productos registrados");
+              </script>';
               }
             } else {
               echo '<script type="text/javascript">
-              alert("No se encontraron productos registrados");
-              </script>';
-            }
-          } else {
-            echo '<script type="text/javascript">
             alert("Error al consultar productos");
             </script>';
-          }
-          ?>
+            }
+            ?>
+          </tbody>
         </table>
       </div>
     </div>
