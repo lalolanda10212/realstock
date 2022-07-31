@@ -101,10 +101,6 @@ require_once './php/session-data.php';
                   <input type="number" min="1" name="unit_cost" required placeholder="Ingrese el valor por unidad" />
                 </div>
                 <div class="form-section">
-                  <label for="">Fecha:</label>
-                  <input type="date" name="date" required />
-                </div>
-                <div class="form-section">
                   <label for="">Descripción:</label>
                   <input type="text" name="description" required placeholder="Describa el movimiento" />
                 </div>
@@ -272,7 +268,7 @@ require_once './php/session-data.php';
                           </div>
                           <div class="form-section">
                             <label for="">Fecha:</label>
-                            <input type="date" name="date" required value="<?php echo $row['fecha'] ?>" />
+                            <input type="date" readonly value="<?php echo $row['fecha'] ?>" />
                           </div>
                           <div class="form-section">
                             <label for="">Descripción:</label>

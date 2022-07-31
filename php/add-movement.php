@@ -26,13 +26,12 @@ if (isset($_POST['save'])) {
     $subtype_movement = $_POST['subtype_movement'];
     $amount = $_POST['amount'];
     $unit_cost = $_POST['unit_cost'];
-    $date = $_POST['date'];
     $description = $_POST['description'];
     $product = $_POST['product'];
     $third = $_POST['third'];
 
-    $stmt = $conn->prepare("INSERT INTO tbl_movimiento (tipo_movimiento, subtipo_movimiento, cantidad, costo_unitario, fecha, descripcion, tbl_producto_id, tbl_tercero_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param('ssssssss', $type_movement, $subtype_movement, $amount, $unit_cost, $date, $description, $product, $third);
+    $stmt = $conn->prepare("INSERT INTO tbl_movimiento (tipo_movimiento, subtipo_movimiento, cantidad, costo_unitario, fecha, descripcion, tbl_producto_id, tbl_tercero_id) VALUES (?, ?, ?, ?, curdate(), ? ,? ,?)");
+    $stmt->bind_param('sssssss', $type_movement, $subtype_movement, $amount, $unit_cost, $description, $product, $third);
 
     $stmt->execute();
     if (($stmt) && ($stmt->affected_rows == 1)) {
