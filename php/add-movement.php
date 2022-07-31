@@ -1,5 +1,25 @@
 <?php
 if (isset($_POST['save'])) {
+
+    if (!isset($_POST['product'], $_POST['third'])) {
+        echo '<script type="text/javascript">
+        alert("Tiene que seleccionar un producto y tercero");
+        window.location.href = "../frm_registrar-movimientos.php";
+        </script>';
+        exit();
+    } elseif (!isset($_POST['product'])) {
+        echo '<script type="text/javascript">
+        alert("Tiene que seleccionar un producto");
+        window.location.href = "../frm_registrar-movimientos.php";
+        </script>';
+        exit();
+    } elseif (!isset($_POST['third'])) {
+        echo '<script type="text/javascript">
+        alert("Tiene que seleccionar a un tercero");
+        window.location.href = "../frm_registrar-movimientos.php";
+        </script>';
+        exit();
+    }
     require './config.php';
 
     $type_movement = $_POST['type_movement'];

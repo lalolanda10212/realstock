@@ -1,7 +1,6 @@
 <?php
 if (isset($_POST['save'])) {
-    require './config.php';
-
+    
     if (!isset($_POST['category'])) {
         echo '<script type="text/javascript">
         alert("Tiene que seleccionar una categoría");
@@ -9,7 +8,8 @@ if (isset($_POST['save'])) {
         </script>';
         exit();
     }
-
+    require './config.php';
+    
     $category = $_POST['category'];
     $subcategory = $_POST['subcategory'];
     $description = $_POST['description'];
